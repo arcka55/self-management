@@ -5,7 +5,7 @@
                 © <script>
                   document.write(new Date().getFullYear())
                 </script>,
-                <a href="<?= base_url('home')?>" class="font-weight-bold" target="_blank">IPKB Universitas Hasanuddin</a>
+                <a href="<?= base_url('home')?>" class="font-weight-bold" target="_blank">Self Management</a>
               </div>
             </div>
             <div class="col-lg-6">

@@ -42,6 +42,14 @@ class Auth_model extends CI_Model {
  
         return $query->row();
     }
+    public function get_user_by_id($id)
+    {
+        $this->db->from($this->table);
+        $this->db->where('id',$id);
+        $query = $this->db->get();
+ 
+        return $query->row_array();
+    }
  
     public function save($data)
     {

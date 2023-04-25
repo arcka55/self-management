@@ -17,7 +17,7 @@
             </li>
           </ul>
             <div class="ms-md-auto mt-3 mb-lg-n6 align-items-center text-end">
-                <img src="<?= site_url('assets/admin/upload/images/logo/').$logo['logo'] ?>" class="img-fluid w-20 h-20" alt="">
+              Self Management <img src="<?= site_url('assets/admin/upload/images/logo/').$logo['logo'] ?>" class="img-fluid w-15 h-15" alt="">
             </div>
         </div>
       </div>

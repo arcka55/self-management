@@ -13,13 +13,9 @@
             if (isset($admin)) {
                 $words = explode(" ", $admin["nama"]);
             }
-        } else if($active_controller == "startup") {
-            if (isset($startupData)) {
-                $words = explode(" ", $startup["nama_startup"]);
-            }
-        } else if($active_controller == "coach"){
-            if (isset($coach)) {
-                $words = explode(" ", $coach["nama"]);
+        } else if($active_controller == "responden"){
+            if (isset($responden)) {
+                $words = explode(" ", $responden["nama"]);
             }
         }
         if(isset($words[0]))

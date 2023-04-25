@@ -23,6 +23,7 @@
     $active_method = $this->router->fetch_method();
   ?>
   <!--   Core JS Files   -->
+  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="<?= site_url('assets/template/js/core/popper.min.js') ?>"></script>
   <script src="<?= site_url('assets/template/js/core/bootstrap.min.js') ?>"></script>
@@ -40,6 +41,46 @@
     <!-- <script src="<?php echo base_url('assets/ckeditor/ckeditor.js');?>"></script> -->
     <script src="<?php echo base_url('assets/plugin-berita/modules/ckeditor/ckeditor.js');?>"></script>
     <!-- <script src="modules/ckeditor/ckeditor.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      // flashdata untuk ganti username
+      const flashData = $('.flash-data').data('flashdata');
+      const kuesionerTitle = $('.flash-data').data('kuesioner');
+      if(flashData && kuesionerTitle == "Pretest Intervensi") {
+        swal.fire({
+          title: 'Kuesioner '+ kuesionerTitle,
+          text: 'Berhasil '+ flashData,
+          footer: '<a class="text-footsweet" href="<?= base_url('responden/materi/').$id_user ?>">Klik Disini! Untuk Masuk ke Halaman Download Materi</a>',
+          icon: 'success'
+        });
+      }else if(flashData){
+        swal.fire({
+          title: 'Kuesioner '+ kuesionerTitle,
+          text: 'Berhasil '+ flashData,
+          icon: 'success'
+        });
+      }
+
+      // flash data untuk kirim email massal
+      const flashDataEmail = $('.flash-data-email').data('flashdataemail');
+
+      if(flashDataEmail) {
+        swal.fire({
+          title: 'Success ',
+          html: '<div>Email dengan Subject: <em><b>"'+ flashDataEmail+ '"</b></em> berhasil dikirim ke email responden secara massal<div>',
+          icon: 'success'
+        });
+      }
+
+      // script untuk download file
+      function download() {
+          if (confirm ('Download File Materi ?')) {
+              location.href = '<?= base_url('assets/admin/upload/file/materi') ?>';
+          }
+
+          return false;
+      }
+    </script>
  
   <!-- script for materi -->
   <script>
@@ -50,9 +91,15 @@
     var active_method = "<?=$active_method?>";
     var editModalId;
 
+    var data_username = "<?= (isset($user['username'])) ? $user['username'] : ''; ?>";
+
     let $old_value;
 
     $(document).ready(function() {
+
+      $('#show-password').click(function(){
+          $(this).is(':checked') ? $('#password2').attr('type', 'text') : $('#password2').attr('type', 'password');
+      });
 
       $("#role_id").change(function () {
           var val = $(this).val();
@@ -192,33 +239,13 @@
               modal.find('#role_id2').attr("value",div.data('role_id'));
               modal.find('#id_user2').attr("value",div.data('id'));
               
-            }else if(active_method == "coaching") {
-              modal.find('#nama_startup3').html(div.data('nama_startup'));
-              modal.find('#judul3').html(div.data('judul'));
-              modal.find('#idLaporan3').html(div.data('id'));
-              modal.find('#waktu3').html(div.data('waktu'));
-              modal.find('#deskripsi3').html(div.data('deskripsi'));
-              modal.find('#kontak3').html(div.data('kontak'));
-              modal.find('#email3').html(div.data('email'));
-              if(!div.data('file')) {
-                modal.find('#lampiran_message3').html(`(*Tidak Ada Lampiran File.)`);
-                modal.find('#lampiran_file3').addClass('disabled');
-                modal.find('#lampiran_gambar3').addClass('link-opacity');
-                console.log(div.data('file'));
-              }else {
-                // modal.find('#lampiran_file3').addClass('disabled');
-                modal.find('#lampiran_message3').html(`(*Klik file icon disamping untuk mendownload file)`);
-                modal.find('#lampiran_file3').removeClass('disabled');
-                modal.find('#lampiran_gambar3').removeClass('link-opacity');
+            }else if(active_method == "data_responden") {
+              modal.find('#sistolik').attr("value",div.data('sistolik'));
+              modal.find('#diastolik').attr("value",div.data('diastolik'));
+              modal.find('#id_responden').attr("value",div.data('idresponden'));
+              modal.find('#id_user').attr("value",div.data('iduser'));
+              modal.find('#kuesioner').attr("value",div.data('kuesioner'));
 
-              }
-              modal.find('#gambar_startup3').attr("src","<?= site_url('assets/startup/profil/') ?>"+div.data('gambar'));
-              // modal.find('#file-upload3').attr("src","<?= site_url('upload/') ?>"+div.data('picture'));
-              // modal.find('#idBerita3').html(div.data('id'));
-              // modal.find('#title3').html(div.data('title'));
-              // modal.find('#category3').html(div.data('category'));
-              // modal.find('#ckeditor3').html(div.data('post'));
-              // modal.find('#nama3').html(div.data('nama'));
             }
             
             
@@ -338,6 +365,10 @@
         $('#editModal').on('hidden.bs.modal', function () {
           // location.reload();
           $('.resetForm')[0].reset();
+
+          if(active_method == "user") {
+            $('#password2')[0].type = 'password';
+          }
         });
 
         // reset form edit zoom request
@@ -536,6 +567,26 @@
 
       // button upload(EDIT)
 
+      tabledata = $('.tabel-data').DataTable({
+          language: {
+            paginate: {
+              next: '&#8594;', // or '→'
+              previous: '&#8592;' // or '←' 
+            }
+          },
+          "scrollX": true,
+          aLengthMenu: [
+              [5, 10, 25, 50, -1],
+              [5, 10, 25, 50, "All"]
+          ],
+          iDisplayLength: 10
+        });
+
+        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(e){
+          $($.fn.dataTable.tables(true)).DataTable()
+              .columns.adjust();
+        });
+
       table = $('#tabel').DataTable({
           language: {
             paginate: {
@@ -600,6 +651,19 @@
           $(this).parent().next().empty();
       });
 
+      // radio kuesioner
+      // if radio button selected
+      $("input[name$='penyakit1']").click(function() {
+          var test = $(this).val();
+          if(test == "Ya")
+          {
+            $("div.div_desc_penyakit1").show().find(':input').attr('required', true);
+          }
+          if(test == "Tidak") {
+            $("div.div_desc_penyakit1").hide().find(':input').attr('required', false);
+          }
+      });
+
       $('#password, #confirm_password').on('keyup', function () {
         if($('#password').val() == '' && $('#confirm_password').val() == ''){
           $('#message').html('');
@@ -610,6 +674,18 @@
         } else {
           $('#message').html('Not Matching').css('color', 'red');
           $('#btnSubmitChangePassword').attr('disabled', true);
+        }
+      });
+
+      $('#username').on('keyup', function () {
+        if($('#username').val() == ''){
+          $('#message2').html('Username tidak boleh kosong').css('color', 'red');
+        }
+        else if ($('#username').val() == data_username) {
+          $('#btnSubmitChangeUsername').attr('disabled', true);
+        } else {
+          $('#message2').html('');
+          $('#btnSubmitChangeUsername').attr('disabled', false);
         }
       });
 
@@ -753,6 +829,8 @@
 
     function reload_table()
     {
+      // $('#tabel').DataTable().ajax.reload();
+        // tabledata.ajax.reload();
         // table.ajax.reload(); //reload datatable ajax
         // $("#tabel_body").load(location.href+" #tabel_body>*","");
 
@@ -872,6 +950,8 @@
           if(active == "berita") {
             form = $('#form_edit')[0];
           }else if(active == "user") {
+            form = $('#form_edit')[0];
+          }else if(active == "data_responden") {
             form = $('#form_edit')[0];
           }else if((active == "about_visimisi") || (active == "about_struktur")) {
             if(active == "about_visimisi"){
@@ -1029,187 +1109,7 @@
     }
     
   </script>
-  <!-- <script type="text/javascript">
-
-    var save_method; //for save method string
-    var table;
-
-    $(document).ready(function() {
-
-        //datatables
-        table = $('#table').DataTable({ 
-
-            "processing": true, //Feature control the processing indicator.
-            "serverSide": true, //Feature control DataTables' server-side processing mode.
-            "order": [], //Initial no order.
-
-            // Load data for the table's content from an Ajax source
-            "ajax": {
-                "url": "<?= base_url("coach/$active/$id_user")?>",
-                "type": "POST"
-            },
-
-            //Set column definition initialisation properties.
-            "columnDefs": [
-            { 
-                "targets": [ -1 ], //last column
-                "orderable": false, //set not orderable
-            },
-            ],
-
-        });
-
-
-
-        //datepicker
-        $('.datepicker').datepicker({
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            todayHighlight: true,
-            orientation: "top auto",
-            todayBtn: true,
-            todayHighlight: true,  
-        });
-
-        //set input/textarea/select event when change value, remove class error and remove text help block 
-        $("input").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("textarea").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("select").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-
-    });
-
-
-
-    function add()
-    {
-        save_method = 'add';
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
-        $('#modal_form').modal('show'); // show bootstrap modal
-        $('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
-    }
-
-    function edit(id)
-    {
-        save_method = 'update';
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
-
-        //Ajax Load data from ajax
-        $.ajax({
-            url : "<?php echo site_url("coach/$active/$id_user/edit")?>/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function(data)
-            {
-
-                $('[name="id"]').val(data.id);
-                $('[name="firstName"]').val(data.firstName);
-                $('[name="lastName"]').val(data.lastName);
-                $('[name="gender"]').val(data.gender);
-                $('[name="address"]').val(data.address);
-                $('[name="dob"]').datepicker('update',data.dob);
-                $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Person'); // Set title to Bootstrap modal title
-
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error get data from ajax');
-            }
-        });
-    }
-
-    function reload_table()
-    {
-        table.ajax.reload(null,false); //reload datatable ajax 
-    }
-
-    function save()
-    {
-        $('#btnSave').text('saving...'); //change button text
-        $('#btnSave').attr('disabled',true); //set button disable 
-        var url;
-
-        if(save_method == 'add') {
-            url = "<?php echo site_url('person/ajax_add')?>";
-        } else {
-            url = "<?php echo site_url('person/ajax_update')?>";
-        }
-
-        // ajax adding data to database
-        $.ajax({
-            url : url,
-            type: "POST",
-            data: $('#form').serialize(),
-            dataType: "JSON",
-            success: function(data)
-            {
-
-                if(data.status) //if success close modal and reload ajax table
-                {
-                    $('#modal_form').modal('hide');
-                    reload_table();
-                }
-                else
-                {
-                    for (var i = 0; i < data.inputerror.length; i++) 
-                    {
-                        $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
-                        $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
-                    }
-                }
-                $('#btnSave').text('save'); //change button text
-                $('#btnSave').attr('disabled',false); //set button enable 
-
-
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error adding / update data');
-                $('#btnSave').text('save'); //change button text
-                $('#btnSave').attr('disabled',false); //set button enable 
-
-            }
-        });
-    }
-
-    function delete_person(id)
-    {
-        if(confirm('Are you sure delete this data?'))
-        {
-            // ajax delete data to database
-            $.ajax({
-                url : "<?php echo site_url('person/ajax_delete')?>/"+id,
-                type: "POST",
-                dataType: "JSON",
-                success: function(data)
-                {
-                    //if success reload ajax table
-                    $('#modal_form').modal('hide');
-                    reload_table();
-                },
-                error: function (jqXHR, textStatus, errorThrown)
-                {
-                    alert('Error deleting data');
-                }
-            });
-
-        }
-    }
-
-  </script> -->
+ 
   <!-- script for coaching -->
   <script type="text/javascript"> 
     $(function() {

@@ -77,5 +77,26 @@ class Admin_model extends CI_Model {
 		return $query->row_array();
 	}
 
+	public function kuesioner_responden_all() {
+        $this->db->select("berita.id as id_responden, .title, berita.picture, berita.category, berita.post, berita.datetime_created, berita.id_admin, admin.id, admin.nama");
+        $this->db->from($this->table);
+        $this->db->join('admin', 'berita.id_admin = admin.id');
+		$this->db->order_by('berita.id', 'DESC');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+	public function kuesionerResponden_get_by_idResponden($id) {
+        $this->db->select("responden.id as id_berita, responden.nama, responden.usia, berita.category, berita.post, berita.datetime_created, berita.id_admin, admin.id, admin.nama");
+		$this->db->from($this->table);
+        $this->db->join('admin', 'berita.id_admin = admin.id');
+		$this->db->where('berita.id',$id);
+		$this->db->order_by('berita.id', 'DESC');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
 
 }

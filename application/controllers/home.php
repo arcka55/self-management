@@ -31,7 +31,7 @@ class Home extends CI_Controller {
 		// $this->load->model('testimonial_model','testimonial');
 		// $this->load->model('carousel_model','carousel');
 		// $this->load->model('contact_model','contact');
-		// $this->load->model('logo_model','logo');
+		$this->load->model('logo_model','logo');
 		// $this->load->model('partners_model','partners');
 	}
 	
@@ -62,9 +62,8 @@ class Home extends CI_Controller {
 		// // get database partners
 		// $this->data["partners"] = $this->partners->get_all();
 
-		// // get database logo
-		// $this->data["logo"] = $this->logo->get_by_id(1);
-
+		// get database logo
+		$this->data["logo"] = $this->logo->get_by_id(1);
 		$this->data["active"] = "home";
 		$this->load->view('login.php', $this->data);
 	}

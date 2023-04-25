@@ -2,7 +2,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="<?= site_url('assets/template/img/apple-icon.png') ?>">
-  <!-- <link rel="icon" type="image/png" href="<?= site_url('assets/admin/upload/images/logo/').$logo['logo'] ?>"> -->
+  <link rel="icon" type="image/png" href="<?= site_url('assets/admin/upload/images/logo/').$logo['logo'] ?>">
   <title>
     <?= ucfirst($this->router->fetch_class()); ?>
   </title>

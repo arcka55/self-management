@@ -94,8 +94,15 @@
         }
 
   </style>
-</head>
 
+  <script>
+      function alertUser(msg) {
+            alert(msg);
+      }
+  </script>
+
+</head>
+<?php $message2 = $this->session->flashdata('message2');  ?>
 <body class="g-sidenav-show bg-gray-200">
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -147,7 +154,7 @@
                 <?php echo $name_explode['firstname']." "; if(isset($name_explode['lastname'])){ echo $name_explode['lastname']." "; } if(isset($name_explode['third_word'])) { echo $name_explode['third_word'][0]; } ?>
               </h5>
               <p class="mb-0 font-weight-normal text-sm">
-                <?= $admin['email'] ?>
+                <?= $admin['email']." (". $user['username'] .")" ?>
               </p>
             </div>
           </div>
@@ -195,7 +202,6 @@
                   <div class="row">
                     <div class="col mb-3">
                       <ul class="list-group">
-                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Nama Lengkap:</strong> &nbsp; <?= ($admin['nama']) ? $admin['nama'] : "-" ?></li>
                         <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Gender:</strong> &nbsp; <?= ($admin['gender']) ? $admin['gender'] : "-" ?></li>
                         <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Nomor Telp:</strong> &nbsp; <?= ($admin['nomor_telp']) ? $admin['nomor_telp'] : "-" ?></li>
                         <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Alamat:</strong> &nbsp; <?= ($admin['alamat']) ? $admin['alamat'] : "-" ?></li>
@@ -216,18 +222,42 @@
                 <div class="card-header pb-0 p-3">
                   <div class="row">
                     <div class="col-md-8 d-flex align-items-center">
-                      <h6 class="mb-0">Password Settings</h6>
+                      <h6 class="mb-0">User Settings</h6>
                     </div>
                   </div>
                 </div>
                 <div class="card-body p-3">
+                  <!-- Change Username -->
+                  <p class="text-sm">
+                    Change Username :
+                  </p>
+                  <form action="<?= base_url('admin/change_username/').$id_user ?>" method="post">
+                    <div class="row">
+                      <div class="col-md-4 col-sm">
+                        <div class="input-group input-group-outline mb-2">
+                          <input type="text" id="username" name="username" class="form-control" placeholder="username.." value="<?= $user['username'] ?>" required>
+                        </div>
+                        <div>
+                          <input type="hidden" name="id_admin" value="<?= $admin['id']; ?>">
+                        </div>
+                        <div class=""></div>
+                        <span class="text-sm" id='message2'></span>
+                      </div>
+                      <div class="col">
+                        <button class="btn btn-primary" id="btnSubmitChangeUsername" disabled type="submit">Submit</button>
+                      </div>
+                    </div>
+                  </form>
+                  <hr class="horizontal gray-light border border-1 my-4">
+
+                  <!-- change password -->
                   <p class="text-sm">
                     Change Your Password :
                   </p>
                   <form action="<?= base_url('admin/change_password/').$id_user ?>" method="post">
                     <div class="row">
-                      <div class="col">
-                        <div class="input-group input-group-outline mb-6">
+                      <div class="col-sm">
+                        <div class="input-group input-group-outline mb-2">
                           <input type="password" name="old_password" class="form-control" placeholder="Old Password.." required>
                         </div>
                         <div>
@@ -235,20 +265,20 @@
                         </div>
                         <div class=""></div>
                       </div>
-                      <div class="col">
-                        <div class="input-group input-group-outline mb-6">
+                      <div class="col-sm">
+                        <div class="input-group input-group-outline mb-2">
                           <input type="password" name="password" id="password" class="form-control" placeholder="New Password.." required>
                         </div>
                         <div class=""></div>
                       </div>
-                      <div class="col">
-                        <div class="input-group input-group-outline mb-1">
+                      <div class="col-sm">
+                        <div class="input-group input-group-outline mb-3">
                           <input type="password" name="confirm_password" id="confirm_password" class="form-control me-2" placeholder="Confirm New Password.." required>
                         </div>
                         <div class=""></div>
                         <span id='message'></span>
                       </div>
-                      <div class="col">
+                      <div class="col-sm">
                         <button class="btn btn-primary" id="btnSubmitChangePassword" disabled type="submit">Submit</button>
                       </div>
                     </div>
@@ -370,7 +400,7 @@
                 <input type="hidden" name="id_user" value="<?= $id_user ?>">
                 <input type="text" name="nama" value="<?= $admin['nama'] ?>" class="form-control" placeholder="Masukkan Nama Lengkap Anda" required>
               </div>
-              <div class="help-block form-text mt-n2"></div>
+              <div class="help-block form-text mb-3 mt-n3"></div>
               <div class="input-group input-group-static mb-4">
                 <label for="gender" class="ms-0">Gender</label>
                 <select class="form-control" name="gender" id="gender">
@@ -378,27 +408,28 @@
                   <option value="Wanita" <?php if($admin['gender'] == "Wanita") echo "selected" ?>>Wanita</option>
                 </select>
               </div>
-              <div class="help-block form-text mt-n2"></div>
+              <div class="help-block form-text mb-3 mt-n3"></div>
               <div class="input-group input-group-static mb-4">
                 <label class="">Email</label>
                 <input type="email" name="email" class="form-control" value="<?= $admin['email'] ?>" placeholder="Masukkan Email.." required>
+                <div class="form-text text-xs">(* Penggantian Email, Akun anda akan logout secara otomatis dan user diminta untuk login ulang)</div>
               </div>
-              <div class="help-block form-text mt-n2"></div>
+              <div class="help-block form-text mb-3 mt-n3"></div>
               <div class="input-group input-group-static mb-4">
                 <label class="">Nomor HP</label>
                 <input type="text" name="nomor_hp" class="form-control" value="<?= $admin['nomor_telp'] ?>" placeholder="Masukkan Nomor HP" required>
               </div>
-              <div class="help-block form-text mt-n2"></div>
+              <div class="help-block form-text mb-3 mt-n3"></div>
               <label class="">Alamat</label>
               <div class="input-group input-group-dynamic mb-4">
                 <textarea class="form-control" name="alamat" placeholder="Masukkan Alamat Anda" spellcheck="false"><?= $admin['alamat'] ?></textarea>
               </div>
-              <div class="help-block form-text mt-n2"></div>
+              <div class="help-block form-text mb-3 mt-n3"></div>
               <label class="">Deskripsi Pribadi</label>
               <div class="input-group input-group-dynamic mb-4">
                 <textarea class="form-control" name="deskripsi_pribadi" placeholder="Masukkan Deskripsi Pribadi.." spellcheck="false"><?= $admin['deskripsi_pribadi'] ?></textarea>
               </div>
-              <div class="help-block form-text mt-n2"></div>
+              <div class="help-block form-text mb-3 mt-n3"></div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
@@ -421,7 +452,7 @@
                 <div class="modal-body form">
                   <form class="form_edit" id="form_edit_foto_profile" action="#" enctype="multipart/form-data">
                     <div class="text-center">
-                      <img class="rounded" src="<?= site_url('assets/admin/upload/images/profile/').$admin['gambar'] ?>" class="img-fluid" alt="">
+                      <img class="rounded w-50" src="<?= site_url('assets/admin/upload/images/profile/').$admin['gambar'] ?>" class="img-fluid" alt="">
                     </div>
                     <p style="font-weight: 400; font-size: 0.875rem;" class="mb-n3 mt-4">Change Foto Profile</p>
                     <div class="form-group">
@@ -432,10 +463,12 @@
                         <span id="file-selected2" class="d-inline-block mt-2"></span>
                         <input id="file-upload2" name="foto_profile" type="file"/>
                         <input type="hidden" name="id_user" value="<?= $id_user ?>"/>
+                        <input type="hidden" name="id_admin" value="<?= $admin['id'] ?>">
+
                       </div>  
                       <div class="help-block form-text mt-n2"></div>
                     </div>
-                    <div class="form-text text-xs mb-6" style="width: 400px">( *File Max Size 3 MB | Max Dimensi (W x H): 3000 x 3000 | File Support: .jpg .jpeg .png )</div> 
+                    <div class="form-text text-xs mb-2" style="width: 400px">( *File Max Size 3 MB | Max Dimensi (W x H): 3000 x 3000 | File Support: .jpg .jpeg .png )</div> 
                   </form>
                 </div>
                 <div class="modal-footer">
@@ -450,6 +483,17 @@
   </div>
   <!-- load file js.php -->
   <?php $this->load->view('template/_partials/js.php'); ?>
+
+  <!-- onload -->
+  <?php
+      if(isset($message2)) :
+    ?>
+      <script>
+        window.onload=alertUser('<?=$message2?>');
+      </script>
+    <?php 
+      endif; 
+  ?>
 </body>
 
 </html>
