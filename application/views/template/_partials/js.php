@@ -1,29 +1,29 @@
   <!-- Modal Logout-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Logout</h5>
-            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>Anda yaking ingin Keluar dari portal ini ?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-            <a type="button" class="btn bg-gradient-primary" href="<?= base_url('auth/logout') ?>">Logout</a>
-          </div>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Logout</h5>
+          <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Anda yaking ingin Keluar dari portal ini ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+          <a type="button" class="btn bg-gradient-primary" href="<?= base_url('auth/logout') ?>">Logout</a>
         </div>
       </div>
     </div>
+  </div>
   <?php
-    $active_controller = $this->router->fetch_class();
-    $active_method = $this->router->fetch_method();
+  $active_controller = $this->router->fetch_class();
+  $active_method = $this->router->fetch_method();
   ?>
   <!--   Core JS Files   -->
-  
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="<?= site_url('assets/template/js/core/popper.min.js') ?>"></script>
   <script src="<?= site_url('assets/template/js/core/bootstrap.min.js') ?>"></script>
@@ -33,66 +33,65 @@
   <script src="<?= site_url('assets/template/js/plugins/moment.min.js') ?>"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-  <script src="<?= site_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
-  <script src="<?= site_url('assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')?>"></script>
-  <script src="<?= site_url('assets/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js')?>"></script>
-  <!-- <script src="<?php echo base_url('assets/jquery/jquery-3.3.1.js');?>"></script> -->
-    <script src="<?php echo base_url('assets/template/js/core/bootstrap.bundle.min.js');?>"></script>
-    <!-- <script src="<?php echo base_url('assets/ckeditor/ckeditor.js');?>"></script> -->
-    <script src="<?php echo base_url('assets/plugin-berita/modules/ckeditor/ckeditor.js');?>"></script>
-    <!-- <script src="modules/ckeditor/ckeditor.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-      // flashdata untuk ganti username
-      const flashData = $('.flash-data').data('flashdata');
-      const kuesionerTitle = $('.flash-data').data('kuesioner');
-      if(flashData && kuesionerTitle == "Pretest Intervensi") {
-        swal.fire({
-          title: 'Kuesioner '+ kuesionerTitle,
-          text: 'Berhasil '+ flashData,
-          showConfirmButton:false,
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          footer: '<a class="btn btn-info" href="#" onclick="swal.close(); return false;" data-bs-toggle="modal" data-bs-target="#readModal">Lihat Materi</a>',
-          icon: 'success'
-          });
+  <script src="<?= site_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js') ?>"></script>
+  <script src="<?= site_url('assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') ?>"></script>
+  <script src="<?= site_url('assets/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js') ?>"></script>
+  <!-- <script src="<?php echo base_url('assets/jquery/jquery-3.3.1.js'); ?>"></script> -->
+  <script src="<?php echo base_url('assets/template/js/core/bootstrap.bundle.min.js'); ?>"></script>
+  <!-- <script src="<?php echo base_url('assets/ckeditor/ckeditor.js'); ?>"></script> -->
+  <script src="<?php echo base_url('assets/plugin-berita/modules/ckeditor/ckeditor.js'); ?>"></script>
+  <!-- <script src="modules/ckeditor/ckeditor.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    // flashdata untuk ganti username
+    const flashData = $('.flash-data').data('flashdata');
+    const kuesionerTitle = $('.flash-data').data('kuesioner');
+    if (flashData && kuesionerTitle == "Pretest Intervensi") {
+      swal.fire({
+        title: 'Kuesioner ' + kuesionerTitle,
+        text: 'Berhasil ' + flashData,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        footer: '<a class="btn btn-info" href="#" onclick="swal.close(); return false;" data-bs-toggle="modal" data-bs-target="#readModal">Lihat Materi</a>',
+        icon: 'success'
+      });
 
-      }else if(flashData){
-        swal.fire({
-          title: 'Kuesioner '+ kuesionerTitle,
-          text: 'Berhasil '+ flashData,
-          icon: 'success'
-        });
+    } else if (flashData) {
+      swal.fire({
+        title: 'Kuesioner ' + kuesionerTitle,
+        text: 'Berhasil ' + flashData,
+        icon: 'success'
+      });
+    }
+
+    // flash data untuk kirim email massal
+    const flashDataEmail = $('.flash-data-email').data('flashdataemail');
+
+    if (flashDataEmail) {
+      swal.fire({
+        title: 'Success ',
+        html: '<div>Email dengan Subject: <em><b>"' + flashDataEmail + '"</b></em> berhasil dikirim ke email responden secara massal<div>',
+        icon: 'success'
+      });
+    }
+
+    // script untuk download file
+    function download() {
+      if (confirm('Download File Materi ?')) {
+        location.href = '<?= base_url('assets/admin/upload/file/materi') ?>';
       }
 
-      // flash data untuk kirim email massal
-      const flashDataEmail = $('.flash-data-email').data('flashdataemail');
+      return false;
+    }
+  </script>
 
-      if(flashDataEmail) {
-        swal.fire({
-          title: 'Success ',
-          html: '<div>Email dengan Subject: <em><b>"'+ flashDataEmail+ '"</b></em> berhasil dikirim ke email responden secara massal<div>',
-          icon: 'success'
-        });
-      }
-
-      // script untuk download file
-      function download() {
-          if (confirm ('Download File Materi ?')) {
-              location.href = '<?= base_url('assets/admin/upload/file/materi') ?>';
-          }
-
-          return false;
-      }
-    </script>
- 
   <!-- script for materi -->
   <script>
-    
     var save_method; //for save method string
     var table;
     var active;
-    var active_method = "<?=$active_method?>";
+    var active_method = "<?= $active_method ?>";
     var editModalId;
 
     var data_username = "<?= (isset($user['username'])) ? $user['username'] : ''; ?>";
@@ -101,35 +100,35 @@
 
     $(document).ready(function() {
 
-      $('#show-password').click(function(){
-          $(this).is(':checked') ? $('#password2').attr('type', 'text') : $('#password2').attr('type', 'password');
+      $('#show-password').click(function() {
+        $(this).is(':checked') ? $('#password2').attr('type', 'text') : $('#password2').attr('type', 'password');
       });
 
-      $("#role_id").change(function () {
-          var val = $(this).val();
-          if(val === "1"){
-            $('#labelNama').text("Nama Admin");
-            $('#fieldNama').show();
+      $("#role_id").change(function() {
+        var val = $(this).val();
+        if (val === "1") {
+          $('#labelNama').text("Nama Admin");
+          $('#fieldNama').show();
 
-            // $('#nama').attr("placeholder", "Masukkan Nama Admin...");
-          }else if(val === "2"){
-            $('#labelNama').text("Nama Coach");
-            $('#fieldNama').show();
-            // $('#nama').attr("placeholder", "Masukkan Nama Coach...");
-          }else if(val === "3"){
-            $('#labelNama').text("Nama Startup");
-            $('#fieldNama').show();
-            // $('#nama').attr("placeholder", "Masukkan Nama Startup...");
-          }else{
-            $('#fieldNama').hide();
-          }
+          // $('#nama').attr("placeholder", "Masukkan Nama Admin...");
+        } else if (val === "2") {
+          $('#labelNama').text("Nama Coach");
+          $('#fieldNama').show();
+          // $('#nama').attr("placeholder", "Masukkan Nama Coach...");
+        } else if (val === "3") {
+          $('#labelNama').text("Nama Startup");
+          $('#fieldNama').show();
+          // $('#nama').attr("placeholder", "Masukkan Nama Startup...");
+        } else {
+          $('#fieldNama').hide();
+        }
       });
 
-      if ( $('#checkOther').is(":checked") ) {
+      if ($('#checkOther').is(":checked")) {
         $('#checkOtherField').show();
 
       } else {
-          $('#checkOtherField').hide();
+        $('#checkOtherField').hide();
       }
 
       $('#openBtn').click(() => $('#myModal').modal({
@@ -143,13 +142,13 @@
       });
 
       $('.btnEditBerita').click(function() {
-          
+
         $('#contentBtnTambahBerita').hide();
         $('#form-tambah-berita').hide();
         $('#data-table').hide();
         $('#edit-form-tambah-berita').show();
-        
-          return false;
+
+        return false;
       });
 
       // Untuk sunting
@@ -165,450 +164,532 @@
       //       modal.find('#file-selected2').html(div.data('picture'));
       //       modal.find('#datetime_created').attr("value",div.data('datetime_created'));
       //       modal.find('#idAdmin').attr("value",div.data('id_admin'));
-            
+
       //   });
-        
-      $('#readModal').on('show.bs.modal', function (event) {
-            // for (instance in CKEDITOR.instances) {
-            //   CKEDITOR.instances[instance].updateElement();
-            // }
-            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-            var modal          = $(this)
 
-            if(active_method == "berita") {
+      $('#readModal').on('show.bs.modal', function(event) {
+        // for (instance in CKEDITOR.instances) {
+        //   CKEDITOR.instances[instance].updateElement();
+        // }
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
 
-              CKEDITOR.instances["ckeditor3"].setData(div.data('post'));
-              
-              // Isi nilai pada field
-              // $('#id').attr('src', 'newImage.jpg');
-              modal.find('#link-file-upload3').attr("href","<?= site_url('assets/admin/upload/images/berita/') ?>"+div.data('picture'));
-              modal.find('#file-upload3').attr("src","<?= site_url('assets/admin/upload/images/berita/') ?>"+div.data('picture'));
-              modal.find('#idBerita3').html(div.data('id'));
-              modal.find('#title3').html(div.data('title'));
-              modal.find('#category3').html(div.data('category'));
-              modal.find('#ckeditor3').html(div.data('post'));
-              modal.find('#nama3').html(div.data('nama'));
-              // modal.find('#file-upload').attr("value",div.data('picture'));
-            
-              // convert date format
-              var datetime_created = moment(div.data('datetime_created')).format("DD-MM-YYYY HH:mm:ss");
-              modal.find('#datetime_created3').html(datetime_created);
-              modal.find('#idAdmin3').html(div.data('id_admin'));
-              
-            }else if(active_method == "coaching") {
-              modal.find('#nama_startup3').html(div.data('nama_startup'));
-              modal.find('#judul3').html(div.data('judul'));
-              modal.find('#idLaporan3').html(div.data('id'));
-              modal.find('#waktu3').html(div.data('waktu'));
-              modal.find('#deskripsi3').html(div.data('deskripsi'));
-              modal.find('#kontak3').html(div.data('kontak'));
-              modal.find('#email3').html(div.data('email'));
-              if(!div.data('file')) {
-                modal.find('#lampiran_message3').html(`(*Tidak Ada Lampiran File.)`);
-                modal.find('#lampiran_file3').addClass('disabled');
-                modal.find('#lampiran_gambar3').addClass('link-opacity');
-                console.log(div.data('file'));
-              }else {
-                // modal.find('#lampiran_file3').addClass('disabled');
-                modal.find('#lampiran_message3').html(`(*Klik file icon disamping untuk mendownload file)`);
-                modal.find('#lampiran_file3').removeClass('disabled');
-                modal.find('#lampiran_file3').attr("href", "<?= site_url('assets/startup/report/') ?>"+div.data('file'));
-                modal.find('#lampiran_gambar3').removeClass('link-opacity');
+        if (active_method == "berita") {
 
-              }
-              modal.find('#gambar_startup3').attr("src","<?= site_url('assets/startup/profil/') ?>"+div.data('gambar'));
-              // modal.find('#file-upload3').attr("src","<?= site_url('upload/') ?>"+div.data('picture'));
-              // modal.find('#idBerita3').html(div.data('id'));
-              // modal.find('#title3').html(div.data('title'));
-              // modal.find('#category3').html(div.data('category'));
-              // modal.find('#ckeditor3').html(div.data('post'));
-              // modal.find('#nama3').html(div.data('nama'));
-            }else if(active_method == "data_responden") {
-              // pass array php to array js
-              var arr_responden = div.data('responden');
-              
-              
-              modal.find('#read-judul-kuesioner').html(div.data('kuesioner'));
-              
-              // nama
-              modal.find('#nama1').attr("value", arr_responden['qk1_d']);
+          CKEDITOR.instances["ckeditor3"].setData(div.data('post'));
 
-              // usia
-              modal.find('#usia1').attr("value", arr_responden['qk2_d']);
+          // Isi nilai pada field
+          // $('#id').attr('src', 'newImage.jpg');
+          modal.find('#link-file-upload3').attr("href", "<?= site_url('assets/admin/upload/images/berita/') ?>" + div.data('picture'));
+          modal.find('#file-upload3').attr("src", "<?= site_url('assets/admin/upload/images/berita/') ?>" + div.data('picture'));
+          modal.find('#idBerita3').html(div.data('id'));
+          modal.find('#title3').html(div.data('title'));
+          modal.find('#category3').html(div.data('category'));
+          modal.find('#ckeditor3').html(div.data('post'));
+          modal.find('#nama3').html(div.data('nama'));
+          // modal.find('#file-upload').attr("value",div.data('picture'));
 
-              // pendidikan
-              (arr_responden['qk3_d'] == "SD") 
-              ? 
-              $("#pendidikan_jawaban11").prop({"checked": true, "disabled": false}) 
-              : 
-              (arr_responden['qk3_d'] == "SMP") 
-              ? 
-              $("#pendidikan_jawaban12").prop({"checked": true, "disabled": false}) 
-              : 
-              (arr_responden['qk3_d'] == "SMA") 
-              ? 
-              $("#pendidikan_jawaban13").prop({"checked": true, "disabled": false}) 
-              : 
-              (arr_responden['qk3_d'] == "Perguruan Tinggi") 
-              ? 
-              $("#pendidikan_jawaban14").prop({"checked": true, "disabled": false}) 
-              : 
-              $("#pendidikan_jawaban15").prop({"checked": true, "disabled": false});
+          // convert date format
+          var datetime_created = moment(div.data('datetime_created')).format("DD-MM-YYYY HH:mm:ss");
+          modal.find('#datetime_created3').html(datetime_created);
+          modal.find('#idAdmin3').html(div.data('id_admin'));
 
-              // pekerjaan
-              (arr_responden['qk4_d'] == "Bertani") 
-              ? 
-              $("#pekerjaan_jawaban11").prop({"checked": true, "disabled": false}) 
-              : 
-              (arr_responden['qk4_d'] == "Pegawai Swasta") 
-              ? 
-              $("#pekerjaan_jawaban12").prop({"checked": true, "disabled": false}) 
-              : 
-              (arr_responden['qk4_d'] == "PNS") 
-              ? 
-              $("#pekerjaan_jawaban13").prop({"checked": true, "disabled": false}) 
-              : 
-              (arr_responden['qk4_d'] == "IRT") 
-              ? 
-              $("#pekerjaan_jawaban14").prop({"checked": true, "disabled": false}) 
-              : 
-              $("#pekerjaan_jawaban15").prop({"checked": true, "disabled": false});
-              
-              // riwayat merokok
-              (arr_responden['qk5_d'] == "Pernah Merokok") 
-              ? 
-              $("#riwayat_merokok_jawaban11").prop({"checked": true, "disabled": false}) 
-              : 
-              (arr_responden['qk5_d'] == "Masih Merokok") 
-              ? 
-              $("#riwayat_merokok_jawaban12").prop({"checked": true, "disabled": false}) 
-              : 
-              $("#riwayat_merokok_jawaban13").prop({"checked": true, "disabled": false});
+        } else if (active_method == "coaching") {
+          modal.find('#nama_startup3').html(div.data('nama_startup'));
+          modal.find('#judul3').html(div.data('judul'));
+          modal.find('#idLaporan3').html(div.data('id'));
+          modal.find('#waktu3').html(div.data('waktu'));
+          modal.find('#deskripsi3').html(div.data('deskripsi'));
+          modal.find('#kontak3').html(div.data('kontak'));
+          modal.find('#email3').html(div.data('email'));
+          if (!div.data('file')) {
+            modal.find('#lampiran_message3').html(`(*Tidak Ada Lampiran File.)`);
+            modal.find('#lampiran_file3').addClass('disabled');
+            modal.find('#lampiran_gambar3').addClass('link-opacity');
+            console.log(div.data('file'));
+          } else {
+            // modal.find('#lampiran_file3').addClass('disabled');
+            modal.find('#lampiran_message3').html(`(*Klik file icon disamping untuk mendownload file)`);
+            modal.find('#lampiran_file3').removeClass('disabled');
+            modal.find('#lampiran_file3').attr("href", "<?= site_url('assets/startup/report/') ?>" + div.data('file'));
+            modal.find('#lampiran_gambar3').removeClass('link-opacity');
 
-              // Konsumsi Alkohol
-              (arr_responden['qk6_d'] == "2-4x/bulan") 
-              ? 
-              $("#konsumsi_alkohol_jawaban11").prop({"checked": true, "disabled": false}) 
-              : 
-              (arr_responden['qk6_d'] == "2-3x/minggu") 
-              ? 
-              $("#konsumsi_alkohol_jawaban12").prop({"checked": true, "disabled": false}) 
-              : 
-              (arr_responden['qk6_d'] == ">4x/minggu") 
-              ? 
-              $("#konsumsi_alkohol_jawaban13").prop({"checked": true, "disabled": false}) 
-              : 
-              (arr_responden['qk6_d'] == "Setiap Hari") 
-              ? 
-              $("#konsumsi_alkohol_jawaban14").prop({"checked": true, "disabled": false}) 
-              : 
-              $("#konsumsi_alkohol_jawaban15").prop({"checked": true, "disabled": false});
-
-              // Penyakit
-              if(arr_responden['qk7_d'].substring(0,2) == "Ya") {
-                $("#penyakit_jawaban11").prop({"checked": true, "disabled": false});
-                $("#div_desc_penyakit1").show();
-                modal.find('#desc_penyakit1').attr("value", arr_responden['qk7_d'].substring(3));
-              }else{
-                $("#penyakit_jawaban12").prop({"checked": true, "disabled": false});
-                $("#div_desc_penyakit1").hide();
-              }
-              
-              // tekanan darah
-              if(arr_responden['qk8_d']) {
-                const tekanan_darah = arr_responden['qk8_d'].split(',');
-                modal.find('#sistolik').html(tekanan_darah[0]);
-                modal.find('#diastolik').html(tekanan_darah[1]);
-              }
-
-              // =========================================================================================
-
-              // B. Self Management
-
-              // B.1 Integrasi Diri
-              var temp = 0;
-              var temp_qk = 9;
-              for (var i = 1; i <=10 ; i++) {
-                 
-              if(arr_responden['qk'+temp_qk+'_sm'] == "Tidak Pernah") {
-                $('input[name="integrasi_diri1'+i+'"]').filter("[value='Tidak Pernah']").prop({"checked": true, "disabled": false});
-              }
-              else if(arr_responden['qk'+temp_qk+'_sm'] == "Jarang"){
-                $('input[name="integrasi_diri1'+i+'"]').filter("[value='Jarang']").prop({"checked": true, "disabled": false});
-              }else if(arr_responden['qk'+temp_qk+'_sm'] == "Kadang-kadang") {
-                $('input[name="integrasi_diri1'+i+'"]').filter("[value='Kadang-kadang']").prop({"checked": true, "disabled": false});
-              } 
-              else if(arr_responden['qk'+temp_qk+'_sm'] == "Selalu"){
-                $('input[name="integrasi_diri1'+i+'"]').filter("[value='Selalu']").prop({"checked": true, "disabled": false});
-              }
-
-              temp_qk++;
-
-            }
-
-              // B.2 Regulasi Diri
-              for (var i = 1; i <=10 ; i++) {
-                 
-              if(arr_responden['qk'+temp_qk+'_sm'] == "Tidak Pernah") {
-                $('input[name="regulasi_diri1'+i+'"]').filter("[value='Tidak Pernah']").prop({"checked": true, "disabled": false});
-              }
-              else if(arr_responden['qk'+temp_qk+'_sm'] == "Jarang"){
-                $('input[name="regulasi_diri1'+i+'"]').filter("[value='Jarang']").prop({"checked": true, "disabled": false});
-              }else if(arr_responden['qk'+temp_qk+'_sm'] == "Kadang-kadang") {
-                $('input[name="regulasi_diri1'+i+'"]').filter("[value='Kadang-kadang']").prop({"checked": true, "disabled": false});
-              } 
-              else if(arr_responden['qk'+temp_qk+'_sm'] == "Selalu"){
-                $('input[name="regulasi_diri1'+i+'"]').filter("[value='Selalu']").prop({"checked": true, "disabled": false});
-              }
-
-              temp_qk++;
-
-            }
-
-              // B.3 Interaksi Dengan Tenaga Kesehatan dan Lainnya (itdk)
-              for (var i = 1; i <=10 ; i++) {
-                 
-              if(arr_responden['qk'+temp_qk+'_sm'] == "Tidak Pernah") {
-                $('input[name="idtk1'+i+'"]').filter("[value='Tidak Pernah']").prop({"checked": true, "disabled": false});
-              }
-              else if(arr_responden['qk'+temp_qk+'_sm'] == "Jarang"){
-                $('input[name="idtk1'+i+'"]').filter("[value='Jarang']").prop({"checked": true, "disabled": false});
-              }else if(arr_responden['qk'+temp_qk+'_sm'] == "Kadang-kadang") {
-                $('input[name="idtk1'+i+'"]').filter("[value='Kadang-kadang']").prop({"checked": true, "disabled": false});
-              } 
-              else if(arr_responden['qk'+temp_qk+'_sm'] == "Selalu"){
-                $('input[name="idtk1'+i+'"]').filter("[value='Selalu']").prop({"checked": true, "disabled": false});
-              }
-
-              temp_qk++;
-
-            }
-
-              // B.4 Pemantauan Tekanan Darah (ptd)
-              for (var i = 1; i <=10 ; i++) {
-                 
-              if(arr_responden['qk'+temp_qk+'_sm'] == "Tidak Pernah") {
-                $('input[name="ptd1'+i+'"]').filter("[value='Tidak Pernah']").prop({"checked": true, "disabled": false});
-              }
-              else if(arr_responden['qk'+temp_qk+'_sm'] == "Jarang"){
-                $('input[name="ptd1'+i+'"]').filter("[value='Jarang']").prop({"checked": true, "disabled": false});
-              }else if(arr_responden['qk'+temp_qk+'_sm'] == "Kadang-kadang") {
-                $('input[name="ptd1'+i+'"]').filter("[value='Kadang-kadang']").prop({"checked": true, "disabled": false});
-              } 
-              else if(arr_responden['qk'+temp_qk+'_sm'] == "Selalu"){
-                $('input[name="ptd1'+i+'"]').filter("[value='Selalu']").prop({"checked": true, "disabled": false});
-              }
-
-              temp_qk++;
-
-            }
-
-              // B.5 Kepatuhan Terhadap Aturan yang Dianjurkan (ktayd)
-              for (var i = 1; i <=10 ; i++) {
-                 
-              if(arr_responden['qk'+temp_qk+'_sm'] == "Tidak Pernah") {
-                $('input[name="ktayd1'+i+'"]').filter("[value='Tidak Pernah']").prop({"checked": true, "disabled": false});
-              }
-              else if(arr_responden['qk'+temp_qk+'_sm'] == "Jarang"){
-                $('input[name="ktayd1'+i+'"]').filter("[value='Jarang']").prop({"checked": true, "disabled": false});
-              }else if(arr_responden['qk'+temp_qk+'_sm'] == "Kadang-kadang") {
-                $('input[name="ktayd1'+i+'"]').filter("[value='Kadang-kadang']").prop({"checked": true, "disabled": false});
-              } 
-              else if(arr_responden['qk'+temp_qk+'_sm'] == "Selalu"){
-                $('input[name="ktayd1'+i+'"]').filter("[value='Selalu']").prop({"checked": true, "disabled": false});
-              }
-
-              temp_qk++;
-
-            }
           }
-            
-            
-      });
+          modal.find('#gambar_startup3').attr("src", "<?= site_url('assets/startup/profil/') ?>" + div.data('gambar'));
+          // modal.find('#file-upload3').attr("src","<?= site_url('upload/') ?>"+div.data('picture'));
+          // modal.find('#idBerita3').html(div.data('id'));
+          // modal.find('#title3').html(div.data('title'));
+          // modal.find('#category3').html(div.data('category'));
+          // modal.find('#ckeditor3').html(div.data('post'));
+          // modal.find('#nama3').html(div.data('nama'));
+        } else if (active_method == "data_responden") {
+          // pass array php to array js
+          var arr_responden = div.data('responden');
 
-      $('#editModal').on('show.bs.modal', function (event) {
-            // for (instance in CKEDITOR.instances) {
-            //   CKEDITOR.instances[instance].updateElement();
-            // }
-            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-            var modal          = $(this)
 
-            if(active_method == "user") {
+          modal.find('#read-judul-kuesioner').html(div.data('kuesioner'));
 
-              modal.find('#username2').attr("value",div.data('username'));
-              modal.find('#email2').attr("value",div.data('user_email'));
-              modal.find('#password2').attr("value",div.data('password'));
-              modal.find('#role_id2').attr("value",div.data('role_id'));
-              modal.find('#id_user2').attr("value",div.data('id'));
-              
-            }else if(active_method == "data_responden") {
-              modal.find('#sistolik').attr("value",div.data('sistolik'));
-              modal.find('#diastolik').attr("value",div.data('diastolik'));
-              modal.find('#id_responden').attr("value",div.data('idresponden'));
-              modal.find('#id_user').attr("value",div.data('iduser'));
-              modal.find('#kuesioner').attr("value",div.data('kuesioner'));
+          // nama
+          modal.find('#nama1').attr("value", arr_responden['qk1_d']);
 
-            }
-            
-            
-        });
+          // usia
+          modal.find('#usia1').attr("value", arr_responden['qk2_d']);
 
-      $('#editTestimonialModal').on('show.bs.modal', function (event) {
-            // for (instance in CKEDITOR.instances) {
-            //   CKEDITOR.instances[instance].updateElement();
-            // }
-            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-            var modal          = $(this)
+          // pendidikan
+          (arr_responden['qk3_d'] == "SD") ?
+          $("#pendidikan_jawaban11").prop({
+              "checked": true,
+              "disabled": false
+            }):
+            (arr_responden['qk3_d'] == "SMP") ?
+            $("#pendidikan_jawaban12").prop({
+              "checked": true,
+              "disabled": false
+            }) :
+            (arr_responden['qk3_d'] == "SMA") ?
+            $("#pendidikan_jawaban13").prop({
+              "checked": true,
+              "disabled": false
+            }) :
+            (arr_responden['qk3_d'] == "Perguruan Tinggi") ?
+            $("#pendidikan_jawaban14").prop({
+              "checked": true,
+              "disabled": false
+            }) :
+            $("#pendidikan_jawaban15").prop({
+              "checked": true,
+              "disabled": false
+            });
 
-              modal.find('#id2').attr("value",div.data('id'));
-              modal.find('#id_admin2').attr("value",div.data('id_admin'));
-              modal.find('#nama2').attr("value",div.data('nama'));
-              modal.find('#profesi2').attr("value",div.data('profesi'));
-              modal.find('#testimonial2').html(div.data('testimonial'));
+          // pekerjaan
+          (arr_responden['qk4_d'] == "Bertani") ?
+          $("#pekerjaan_jawaban11").prop({
+              "checked": true,
+              "disabled": false
+            }):
+            (arr_responden['qk4_d'] == "Pegawai Swasta") ?
+            $("#pekerjaan_jawaban12").prop({
+              "checked": true,
+              "disabled": false
+            }) :
+            (arr_responden['qk4_d'] == "PNS") ?
+            $("#pekerjaan_jawaban13").prop({
+              "checked": true,
+              "disabled": false
+            }) :
+            (arr_responden['qk4_d'] == "IRT") ?
+            $("#pekerjaan_jawaban14").prop({
+              "checked": true,
+              "disabled": false
+            }) :
+            $("#pekerjaan_jawaban15").prop({
+              "checked": true,
+              "disabled": false
+            });
 
-            
-        });
+          // riwayat merokok
+          (arr_responden['qk5_d'] == "Pernah Merokok") ?
+          $("#riwayat_merokok_jawaban11").prop({
+              "checked": true,
+              "disabled": false
+            }):
+            (arr_responden['qk5_d'] == "Masih Merokok") ?
+            $("#riwayat_merokok_jawaban12").prop({
+              "checked": true,
+              "disabled": false
+            }) :
+            $("#riwayat_merokok_jawaban13").prop({
+              "checked": true,
+              "disabled": false
+            });
 
-      $('#editServicesModal').on('show.bs.modal', function (event) {
-            // for (instance in CKEDITOR.instances) {
-            //   CKEDITOR.instances[instance].updateElement();
-            // }
-            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-            var modal          = $(this)
+          // Konsumsi Alkohol
+          (arr_responden['qk6_d'] == "2-4x/bulan") ?
+          $("#konsumsi_alkohol_jawaban11").prop({
+              "checked": true,
+              "disabled": false
+            }):
+            (arr_responden['qk6_d'] == "2-3x/minggu") ?
+            $("#konsumsi_alkohol_jawaban12").prop({
+              "checked": true,
+              "disabled": false
+            }) :
+            (arr_responden['qk6_d'] == ">4x/minggu") ?
+            $("#konsumsi_alkohol_jawaban13").prop({
+              "checked": true,
+              "disabled": false
+            }) :
+            (arr_responden['qk6_d'] == "Setiap Hari") ?
+            $("#konsumsi_alkohol_jawaban14").prop({
+              "checked": true,
+              "disabled": false
+            }) :
+            $("#konsumsi_alkohol_jawaban15").prop({
+              "checked": true,
+              "disabled": false
+            });
 
-              modal.find('#id2').attr("value",div.data('id'));
-              modal.find('#id_admin2').attr("value",div.data('id_admin'));
-              modal.find('#font2').attr("value",div.data('font'));
-              modal.find('#layanan2').attr("value",div.data('layanan'));
-              modal.find('#deskripsi_layanan2').html(div.data('deskripsi_layanan'));
-
-            
-        });
-
-      $('#editPartnersModal').on('show.bs.modal', function (event) {
-            // for (instance in CKEDITOR.instances) {
-            //   CKEDITOR.instances[instance].updateElement();
-            // }
-            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-            var modal          = $(this)
-
-              modal.find('#id5').attr("value",div.data('id'));
-              modal.find('#id_admin5').attr("value",div.data('id_admin'));
-              modal.find('#nama5').attr("value",div.data('nama'));
-
-            
-        });
-
-      $('#editcarouselModal').on('show.bs.modal', function (event) {
-            // for (instance in CKEDITOR.instances) {
-            //   CKEDITOR.instances[instance].updateElement();
-            // }
-            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-            var modal          = $(this)
-
-              modal.find('#id6').attr("value",div.data('id'));
-              modal.find('#id_admin6').attr("value",div.data('id_admin'));
-              modal.find('#title6').attr("value",div.data('title'));
-              modal.find('#deskripsi6').html(div.data('deskripsi'));
-            
-        });
-
-      $('#editZoomRequestModal').on('show.bs.modal', function (event) {
-            // for (instance in CKEDITOR.instances) {
-            //   CKEDITOR.instances[instance].updateElement();
-            // }
-            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-            var modal          = $(this)
-
-              modal.find('#id2').attr("value",div.data('id'));
-              modal.find('#link2').attr("value",div.data('link'));
-            
-        });
-
-      $('#editMateriModal').on('show.bs.modal', function (event) {
-            // for (instance in CKEDITOR.instances) {
-            //   CKEDITOR.instances[instance].updateElement();
-            // }
-            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-            var modal          = $(this)
-
-              modal.find('#id2').attr("value",div.data('id'));
-              modal.find('#judulMateri2').attr("value",div.data('judul_materi'));
-            
-      });
-
-      $('#editLinksModal').on('show.bs.modal', function (event) {
-            // for (instance in CKEDITOR.instances) {
-            //   CKEDITOR.instances[instance].updateElement();
-            // }
-            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-            var modal          = $(this)
-
-              modal.find('#id2').attr("value",div.data('id'));
-              modal.find('#title_link2').attr("value",div.data('title_link'));
-              modal.find('#link2').attr("value",div.data('link'));
-            
-      });
-        
-        // reset form edit website features
-        $('.webFeatures').on('hidden.bs.modal', function () {
-          // location.reload();
-          $('.resetForm')[0].reset();
-          $('.resetForm2')[0].reset();
-          $('.resetForm3')[0].reset();
-          $('.resetForm4')[0].reset();
-          $('.resetForm5')[0].reset();
-          $('.resetForm6')[0].reset();
-          $('.resetForm7')[0].reset();
-          $('.resetForm8')[0].reset();
-        });
-
-        // reset form edit user
-        $('#editModal').on('hidden.bs.modal', function () {
-          // location.reload();
-          $('.resetForm')[0].reset();
-
-          if(active_method == "user") {
-            $('#password2')[0].type = 'password';
+          // Penyakit
+          if (arr_responden['qk7_d'].substring(0, 2) == "Ya") {
+            $("#penyakit_jawaban11").prop({
+              "checked": true,
+              "disabled": false
+            });
+            $("#div_desc_penyakit1").show();
+            modal.find('#desc_penyakit1').attr("value", arr_responden['qk7_d'].substring(3));
+          } else {
+            $("#penyakit_jawaban12").prop({
+              "checked": true,
+              "disabled": false
+            });
+            $("#div_desc_penyakit1").hide();
           }
-        });
 
-        // reset form edit zoom request
-        $('#editZoomRequestModal').on('hidden.bs.modal', function () {
-          // location.reload();
-          $('.resetForm')[0].reset();
-        });
+          // tekanan darah
+          if (arr_responden['qk8_d']) {
+            const tekanan_darah = arr_responden['qk8_d'].split(',');
+            modal.find('#sistolik').html(tekanan_darah[0]);
+            modal.find('#diastolik').html(tekanan_darah[1]);
+          }
 
-        // reset form edit jadwal
-        $('.editJadwal').on('hidden.bs.modal', function () {
-          location.reload();
-          // $('.resetForm')[0].reset();
-        });
+          // =========================================================================================
 
-        // reset form edit materi
-        $('#editMateriModal').on('hidden.bs.modal', function () {
-          // location.reload();
-          $('.resetForm')[0].reset();
+          // B. Self Management
 
-          $('#custom-file-upload2').css({
-              'background-color': '#4CAF50',
-              'color': '#fff',
-              'border': '1px solid #4CAF50'
+          // B.1 Integrasi Diri
+          var temp = 0;
+          var temp_qk = 9;
+          for (var i = 1; i <= 10; i++) {
+
+            if (arr_responden['qk' + temp_qk + '_sm'] == "Tidak Pernah") {
+              $('input[name="integrasi_diri1' + i + '"]').filter("[value='Tidak Pernah']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Jarang") {
+              $('input[name="integrasi_diri1' + i + '"]').filter("[value='Jarang']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Kadang-kadang") {
+              $('input[name="integrasi_diri1' + i + '"]').filter("[value='Kadang-kadang']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Selalu") {
+              $('input[name="integrasi_diri1' + i + '"]').filter("[value='Selalu']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            }
+
+            temp_qk++;
+
+          }
+
+          // B.2 Regulasi Diri
+          for (var i = 1; i <= 10; i++) {
+
+            if (arr_responden['qk' + temp_qk + '_sm'] == "Tidak Pernah") {
+              $('input[name="regulasi_diri1' + i + '"]').filter("[value='Tidak Pernah']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Jarang") {
+              $('input[name="regulasi_diri1' + i + '"]').filter("[value='Jarang']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Kadang-kadang") {
+              $('input[name="regulasi_diri1' + i + '"]').filter("[value='Kadang-kadang']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Selalu") {
+              $('input[name="regulasi_diri1' + i + '"]').filter("[value='Selalu']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            }
+
+            temp_qk++;
+
+          }
+
+          // B.3 Interaksi Dengan Tenaga Kesehatan dan Lainnya (itdk)
+          for (var i = 1; i <= 10; i++) {
+
+            if (arr_responden['qk' + temp_qk + '_sm'] == "Tidak Pernah") {
+              $('input[name="idtk1' + i + '"]').filter("[value='Tidak Pernah']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Jarang") {
+              $('input[name="idtk1' + i + '"]').filter("[value='Jarang']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Kadang-kadang") {
+              $('input[name="idtk1' + i + '"]').filter("[value='Kadang-kadang']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Selalu") {
+              $('input[name="idtk1' + i + '"]').filter("[value='Selalu']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            }
+
+            temp_qk++;
+
+          }
+
+          // B.4 Pemantauan Tekanan Darah (ptd)
+          for (var i = 1; i <= 10; i++) {
+
+            if (arr_responden['qk' + temp_qk + '_sm'] == "Tidak Pernah") {
+              $('input[name="ptd1' + i + '"]').filter("[value='Tidak Pernah']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Jarang") {
+              $('input[name="ptd1' + i + '"]').filter("[value='Jarang']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Kadang-kadang") {
+              $('input[name="ptd1' + i + '"]').filter("[value='Kadang-kadang']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Selalu") {
+              $('input[name="ptd1' + i + '"]').filter("[value='Selalu']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            }
+
+            temp_qk++;
+
+          }
+
+          // B.5 Kepatuhan Terhadap Aturan yang Dianjurkan (ktayd)
+          for (var i = 1; i <= 10; i++) {
+
+            if (arr_responden['qk' + temp_qk + '_sm'] == "Tidak Pernah") {
+              $('input[name="ktayd1' + i + '"]').filter("[value='Tidak Pernah']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Jarang") {
+              $('input[name="ktayd1' + i + '"]').filter("[value='Jarang']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Kadang-kadang") {
+              $('input[name="ktayd1' + i + '"]').filter("[value='Kadang-kadang']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            } else if (arr_responden['qk' + temp_qk + '_sm'] == "Selalu") {
+              $('input[name="ktayd1' + i + '"]').filter("[value='Selalu']").prop({
+                "checked": true,
+                "disabled": false
+              });
+            }
+
+            temp_qk++;
+
+          }
+        }
+
+
+      });
+
+      $('#editModal').on('show.bs.modal', function(event) {
+        // for (instance in CKEDITOR.instances) {
+        //   CKEDITOR.instances[instance].updateElement();
+        // }
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
+
+        if (active_method == "user") {
+
+          modal.find('#username2').attr("value", div.data('username'));
+          modal.find('#email2').attr("value", div.data('user_email'));
+          modal.find('#password2').attr("value", div.data('password'));
+          modal.find('#role_id2').attr("value", div.data('role_id'));
+          modal.find('#id_user2').attr("value", div.data('id'));
+
+        } else if (active_method == "data_responden") {
+          modal.find('#sistolik').attr("value", div.data('sistolik'));
+          modal.find('#diastolik').attr("value", div.data('diastolik'));
+          modal.find('#id_responden').attr("value", div.data('idresponden'));
+          modal.find('#id_user').attr("value", div.data('iduser'));
+          modal.find('#kuesioner').attr("value", div.data('kuesioner'));
+
+        }
+
+
+      });
+
+      $('#editTestimonialModal').on('show.bs.modal', function(event) {
+        // for (instance in CKEDITOR.instances) {
+        //   CKEDITOR.instances[instance].updateElement();
+        // }
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
+
+        modal.find('#id2').attr("value", div.data('id'));
+        modal.find('#id_admin2').attr("value", div.data('id_admin'));
+        modal.find('#nama2').attr("value", div.data('nama'));
+        modal.find('#profesi2').attr("value", div.data('profesi'));
+        modal.find('#testimonial2').html(div.data('testimonial'));
+
+
+      });
+
+      $('#editServicesModal').on('show.bs.modal', function(event) {
+        // for (instance in CKEDITOR.instances) {
+        //   CKEDITOR.instances[instance].updateElement();
+        // }
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
+
+        modal.find('#id2').attr("value", div.data('id'));
+        modal.find('#id_admin2').attr("value", div.data('id_admin'));
+        modal.find('#font2').attr("value", div.data('font'));
+        modal.find('#layanan2').attr("value", div.data('layanan'));
+        modal.find('#deskripsi_layanan2').html(div.data('deskripsi_layanan'));
+
+
+      });
+
+      $('#editPartnersModal').on('show.bs.modal', function(event) {
+        // for (instance in CKEDITOR.instances) {
+        //   CKEDITOR.instances[instance].updateElement();
+        // }
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
+
+        modal.find('#id5').attr("value", div.data('id'));
+        modal.find('#id_admin5').attr("value", div.data('id_admin'));
+        modal.find('#nama5').attr("value", div.data('nama'));
+
+
+      });
+
+      $('#editcarouselModal').on('show.bs.modal', function(event) {
+        // for (instance in CKEDITOR.instances) {
+        //   CKEDITOR.instances[instance].updateElement();
+        // }
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
+
+        modal.find('#id6').attr("value", div.data('id'));
+        modal.find('#id_admin6').attr("value", div.data('id_admin'));
+        modal.find('#title6').attr("value", div.data('title'));
+        modal.find('#deskripsi6').html(div.data('deskripsi'));
+
+      });
+
+      $('#editZoomRequestModal').on('show.bs.modal', function(event) {
+        // for (instance in CKEDITOR.instances) {
+        //   CKEDITOR.instances[instance].updateElement();
+        // }
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
+
+        modal.find('#id2').attr("value", div.data('id'));
+        modal.find('#link2').attr("value", div.data('link'));
+
+      });
+
+      $('#editMateriModal').on('show.bs.modal', function(event) {
+        // for (instance in CKEDITOR.instances) {
+        //   CKEDITOR.instances[instance].updateElement();
+        // }
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
+
+        modal.find('#id2').attr("value", div.data('id'));
+        modal.find('#judulMateri2').attr("value", div.data('judul_materi'));
+
+      });
+
+      $('#editLinksModal').on('show.bs.modal', function(event) {
+        // for (instance in CKEDITOR.instances) {
+        //   CKEDITOR.instances[instance].updateElement();
+        // }
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
+
+        modal.find('#id2').attr("value", div.data('id'));
+        modal.find('#title_link2').attr("value", div.data('title_link'));
+        modal.find('#link2').attr("value", div.data('link'));
+
+      });
+
+      // reset form edit website features
+      $('.webFeatures').on('hidden.bs.modal', function() {
+        // location.reload();
+        $('.resetForm')[0].reset();
+        $('.resetForm2')[0].reset();
+        $('.resetForm3')[0].reset();
+        $('.resetForm4')[0].reset();
+        $('.resetForm5')[0].reset();
+        $('.resetForm6')[0].reset();
+        $('.resetForm7')[0].reset();
+        $('.resetForm8')[0].reset();
+      });
+
+      // reset form edit user
+      $('#editModal').on('hidden.bs.modal', function() {
+        // location.reload();
+        $('.resetForm')[0].reset();
+
+        if (active_method == "user") {
+          $('#password2')[0].type = 'password';
+        }
+      });
+
+      // reset form edit zoom request
+      $('#editZoomRequestModal').on('hidden.bs.modal', function() {
+        // location.reload();
+        $('.resetForm')[0].reset();
+      });
+
+      // reset form edit jadwal
+      $('.editJadwal').on('hidden.bs.modal', function() {
+        location.reload();
+        // $('.resetForm')[0].reset();
+      });
+
+      // reset form edit materi
+      $('#editMateriModal').on('hidden.bs.modal', function() {
+        // location.reload();
+        $('.resetForm')[0].reset();
+
+        $('#custom-file-upload2').css({
+            'background-color': '#4CAF50',
+            'color': '#fff',
+            'border': '1px solid #4CAF50'
           }),
-          
+
           $('#file-selected2').html('');
-        });
+      });
 
       //  reset warna jika tekan refresh
       $('#refresh').click(function() {
-          $('#custom-file-upload').css({
-              'background-color': '#4CAF50',
-              'color': '#fff',
-              'border': '1px solid #4CAF50'
+        $('#custom-file-upload').css({
+            'background-color': '#4CAF50',
+            'color': '#fff',
+            'border': '1px solid #4CAF50'
           }),
 
           $('#file-selected').html('');
-          $('#file-selected2').html('');
+        $('#file-selected2').html('');
       });
 
       $('#openAddCoacheeModal').click(function() {
@@ -619,205 +700,205 @@
         // $('#addCoachee').modal('show');
       });
 
-      
-      $('#file-upload').bind('change', function() { 
-          
-          // menghilangkan fakepath
-          var fileName = ''; 
-          fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
-          $('#file-selected').html(fileName);
 
-          if(fileName == '') {
-            $('#custom-file-upload').css({
-              'background-color': '#4CAF50',
-              'color': '#fff',
-              'border': '1px solid #4CAF50'
-            });
-          } else {
-            $('#custom-file-upload').css({
-              'background-color': '#fff',
-              'color': '#4CAF50',
-              'border': '1px solid #4CAF50'
-            });
-          }
+      $('#file-upload').bind('change', function() {
+
+        // menghilangkan fakepath
+        var fileName = '';
+        fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
+        $('#file-selected').html(fileName);
+
+        if (fileName == '') {
+          $('#custom-file-upload').css({
+            'background-color': '#4CAF50',
+            'color': '#fff',
+            'border': '1px solid #4CAF50'
+          });
+        } else {
+          $('#custom-file-upload').css({
+            'background-color': '#fff',
+            'color': '#4CAF50',
+            'border': '1px solid #4CAF50'
+          });
+        }
       });
 
       // button upload (eddit)
-      $('#file-upload2').bind('change', function() { 
-          var fileName = ''; 
-          fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
-          $('#file-selected2').html(fileName);
+      $('#file-upload2').bind('change', function() {
+        var fileName = '';
+        fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
+        $('#file-selected2').html(fileName);
 
-          if(fileName == '') {
-            $('#custom-file-upload2').css({
-              'background-color': '#4CAF50',
-              'color': '#fff',
-              'border': '1px solid #4CAF50'
-            });
-          } else {
-            $('#custom-file-upload2').css({
-              'background-color': '#fff',
-              'color': '#4CAF50',
-              'border': '1px solid #4CAF50'
-            });
-          }
+        if (fileName == '') {
+          $('#custom-file-upload2').css({
+            'background-color': '#4CAF50',
+            'color': '#fff',
+            'border': '1px solid #4CAF50'
+          });
+        } else {
+          $('#custom-file-upload2').css({
+            'background-color': '#fff',
+            'color': '#4CAF50',
+            'border': '1px solid #4CAF50'
+          });
+        }
       });
 
       // button upload (eddit)
-      $('.file-upload3').bind('change', function() { 
-          var fileName = ''; 
-          fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
-          $('.file-selected3').html(fileName);
+      $('.file-upload3').bind('change', function() {
+        var fileName = '';
+        fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
+        $('.file-selected3').html(fileName);
 
-          if(fileName == '') {
-            $('.custom-file-upload3').css({
-              'background-color': '#4CAF50',
-              'color': '#fff',
-              'border': '1px solid #4CAF50'
-            });
-          } else {
-            $('.custom-file-upload3').css({
-              'background-color': '#fff',
-              'color': '#4CAF50',
-              'border': '1px solid #4CAF50'
-            });
-          }
+        if (fileName == '') {
+          $('.custom-file-upload3').css({
+            'background-color': '#4CAF50',
+            'color': '#fff',
+            'border': '1px solid #4CAF50'
+          });
+        } else {
+          $('.custom-file-upload3').css({
+            'background-color': '#fff',
+            'color': '#4CAF50',
+            'border': '1px solid #4CAF50'
+          });
+        }
       });
 
       // button upload (eddit)
-      $('#file-upload4').bind('change', function() { 
-          var fileName = ''; 
-          fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
-          $('#file-selected4').html(fileName);
+      $('#file-upload4').bind('change', function() {
+        var fileName = '';
+        fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
+        $('#file-selected4').html(fileName);
 
-          if(fileName == '') {
-            $('#custom-file-upload4').css({
-              'background-color': '#4CAF50',
-              'color': '#fff',
-              'border': '1px solid #4CAF50'
-            });
-          } else {
-            $('#custom-file-upload4').css({
-              'background-color': '#fff',
-              'color': '#4CAF50',
-              'border': '1px solid #4CAF50'
-            });
-          }
+        if (fileName == '') {
+          $('#custom-file-upload4').css({
+            'background-color': '#4CAF50',
+            'color': '#fff',
+            'border': '1px solid #4CAF50'
+          });
+        } else {
+          $('#custom-file-upload4').css({
+            'background-color': '#fff',
+            'color': '#4CAF50',
+            'border': '1px solid #4CAF50'
+          });
+        }
       });
 
       // button upload (eddit)
-      $('#file-upload5').bind('change', function() { 
-          var fileName = ''; 
-          fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
-          $('#file-selected5').html(fileName);
+      $('#file-upload5').bind('change', function() {
+        var fileName = '';
+        fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
+        $('#file-selected5').html(fileName);
 
-          if(fileName == '') {
-            $('#custom-file-upload5').css({
-              'background-color': '#4CAF50',
-              'color': '#fff',
-              'border': '1px solid #4CAF50'
-            });
-          } else {
-            $('#custom-file-upload5').css({
-              'background-color': '#fff',
-              'color': '#4CAF50',
-              'border': '1px solid #4CAF50'
-            });
-          }
+        if (fileName == '') {
+          $('#custom-file-upload5').css({
+            'background-color': '#4CAF50',
+            'color': '#fff',
+            'border': '1px solid #4CAF50'
+          });
+        } else {
+          $('#custom-file-upload5').css({
+            'background-color': '#fff',
+            'color': '#4CAF50',
+            'border': '1px solid #4CAF50'
+          });
+        }
       });
 
       // button upload (eddit)
-      $('#file-upload6').bind('change', function() { 
-          var fileName = ''; 
-          fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
-          $('#file-selected6').html(fileName);
+      $('#file-upload6').bind('change', function() {
+        var fileName = '';
+        fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
+        $('#file-selected6').html(fileName);
 
-          if(fileName == '') {
-            $('#custom-file-upload6').css({
-              'background-color': '#4CAF50',
-              'color': '#fff',
-              'border': '1px solid #4CAF50'
-            });
-          } else {
-            $('#custom-file-upload6').css({
-              'background-color': '#fff',
-              'color': '#4CAF50',
-              'border': '1px solid #4CAF50'
-            });
-          }
+        if (fileName == '') {
+          $('#custom-file-upload6').css({
+            'background-color': '#4CAF50',
+            'color': '#fff',
+            'border': '1px solid #4CAF50'
+          });
+        } else {
+          $('#custom-file-upload6').css({
+            'background-color': '#fff',
+            'color': '#4CAF50',
+            'border': '1px solid #4CAF50'
+          });
+        }
       });
       // button upload (eddit)
-      $('#file-upload7').bind('change', function() { 
-          var fileName = ''; 
-          fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
-          $('#file-selected7').html(fileName);
+      $('#file-upload7').bind('change', function() {
+        var fileName = '';
+        fileName = $(this).val().replace(/^C:\\fakepath\\/, "");
+        $('#file-selected7').html(fileName);
 
-          if(fileName == '') {
-            $('#custom-file-upload7').css({
-              'background-color': '#4CAF50',
-              'color': '#fff',
-              'border': '1px solid #4CAF50'
-            });
-          } else {
-            $('#custom-file-upload7').css({
-              'background-color': '#fff',
-              'color': '#4CAF50',
-              'border': '1px solid #4CAF50'
-            });
-          }
+        if (fileName == '') {
+          $('#custom-file-upload7').css({
+            'background-color': '#4CAF50',
+            'color': '#fff',
+            'border': '1px solid #4CAF50'
+          });
+        } else {
+          $('#custom-file-upload7').css({
+            'background-color': '#fff',
+            'color': '#4CAF50',
+            'border': '1px solid #4CAF50'
+          });
+        }
       });
 
       // button upload(EDIT)
 
       tabledata = $('.tabel-data').DataTable({
-          language: {
-            paginate: {
-              next: '&#8594;', // or '→'
-              previous: '&#8592;' // or '←' 
-            }
-          },
-          "scrollX": true,
-          aLengthMenu: [
-              [5, 10, 25, 50, -1],
-              [5, 10, 25, 50, "All"]
-          ],
-          iDisplayLength: 10
-        });
+        language: {
+          paginate: {
+            next: '&#8594;', // or '→'
+            previous: '&#8592;' // or '←' 
+          }
+        },
+        "scrollX": true,
+        aLengthMenu: [
+          [5, 10, 25, 50, -1],
+          [5, 10, 25, 50, "All"]
+        ],
+        iDisplayLength: 10
+      });
 
-        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(e){
-          $($.fn.dataTable.tables(true)).DataTable()
-              .columns.adjust();
-        });
+      $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
+        $($.fn.dataTable.tables(true)).DataTable()
+          .columns.adjust();
+      });
 
       table = $('#tabel').DataTable({
-          language: {
-            paginate: {
-              next: '&#8594;', // or '→'
-              previous: '&#8592;' // or '←' 
-            }
-          },
-          "scrollX": true,
-          aLengthMenu: [
-              [5, 10, 25, 50, -1],
-              [5, 10, 25, 50, "All"]
-          ],
-          iDisplayLength: -1
-        });
-      
-        table2 = $('#tabel2').DataTable({
-          language: {
-            paginate: {
-              next: '&#8594;', // or '→'
-              previous: '&#8592;' // or '←' 
-            }
-          },
-          "scrollX": true,
-          aLengthMenu: [
-              [5, 10, 25, 50, -1],
-              [5, 10, 25, 50, "All"]
-          ],
-          iDisplayLength: 10
-        });
+        language: {
+          paginate: {
+            next: '&#8594;', // or '→'
+            previous: '&#8592;' // or '←' 
+          }
+        },
+        "scrollX": true,
+        aLengthMenu: [
+          [5, 10, 25, 50, -1],
+          [5, 10, 25, 50, "All"]
+        ],
+        iDisplayLength: 10
+      });
+
+      table2 = $('#tabel2').DataTable({
+        language: {
+          paginate: {
+            next: '&#8594;', // or '→'
+            previous: '&#8592;' // or '←' 
+          }
+        },
+        "scrollX": true,
+        aLengthMenu: [
+          [5, 10, 25, 50, -1],
+          [5, 10, 25, 50, "All"]
+        ],
+        iDisplayLength: 10
+      });
 
       //datepicker
       $('.timepicker').datetimepicker({
@@ -832,45 +913,43 @@
       });
       $(".timepicker").find('thead th').remove();
       $(".timepicker").find('thead').append($('<th class="switch">').text('Pick Time'));
-      $('.switch').css('width','190px');
+      $('.switch').css('width', '190px');
 
 
       //set input/textarea/select event when change value, remove class error and remove text help block 
-      
-      // reset modal
-      $("input").change(function(){
-          $(this).parent().parent().removeClass('has-error');
-          $(this).parent().next().empty();
-      });
 
-      $("textarea").change(function(){
+      // reset modal
+      $("input").change(function() {
         $(this).parent().parent().removeClass('has-error');
         $(this).parent().next().empty();
       });
 
-      $("select").change(function(){
-          $(this).parent().parent().removeClass('has-error');
-          $(this).parent().next().empty();
+      $("textarea").change(function() {
+        $(this).parent().parent().removeClass('has-error');
+        $(this).parent().next().empty();
+      });
+
+      $("select").change(function() {
+        $(this).parent().parent().removeClass('has-error');
+        $(this).parent().next().empty();
       });
 
       // radio kuesioner
       // if radio button selected
       $("input[name$='penyakit1']").click(function() {
-          var test = $(this).val();
-          if(test == "Ya")
-          {
-            $("div.div_desc_penyakit1").show().find(':input').attr('required', true);
-          }
-          if(test == "Tidak") {
-            $("div.div_desc_penyakit1").hide().find(':input').attr('required', false);
-          }
+        var test = $(this).val();
+        if (test == "Ya") {
+          $("div.div_desc_penyakit1").show().find(':input').attr('required', true);
+        }
+        if (test == "Tidak") {
+          $("div.div_desc_penyakit1").hide().find(':input').attr('required', false);
+        }
       });
 
-      $('#password, #confirm_password').on('keyup', function () {
-        if($('#password').val() == '' && $('#confirm_password').val() == ''){
+      $('#password, #confirm_password').on('keyup', function() {
+        if ($('#password').val() == '' && $('#confirm_password').val() == '') {
           $('#message').html('');
-        }
-        else if ($('#password').val() == $('#confirm_password').val()) {
+        } else if ($('#password').val() == $('#confirm_password').val()) {
           $('#message').html('Matching').css('color', 'green');
           $('#btnSubmitChangePassword').attr('disabled', false);
         } else {
@@ -879,11 +958,10 @@
         }
       });
 
-      $('#username').on('keyup', function () {
-        if($('#username').val() == ''){
+      $('#username').on('keyup', function() {
+        if ($('#username').val() == '') {
           $('#message2').html('Username tidak boleh kosong').css('color', 'red');
-        }
-        else if ($('#username').val() == data_username) {
+        } else if ($('#username').val() == data_username) {
           $('#btnSubmitChangeUsername').attr('disabled', true);
         } else {
           $('#message2').html('');
@@ -903,7 +981,7 @@
     //   document.body.onfocus = checkIt;
     //   console.log('initializing');
     // }
-      
+
     // // Define a function to check if
     // // the user failed to upload file
     // function checkIt() {
@@ -920,9 +998,9 @@
     //   document.body.onfocus = null;
     //   console.log('checked');
     // }
-    
+
     // Defining a global variable to persist data
-    
+
 
     // if input field id is file and its inside a div which has id file-wrapper
     // $('#file_wrapper').on('change', '#file-upload', function() {
@@ -945,149 +1023,142 @@
     // });
 
 
-    function add(params)
-    {
-        
-        active = params;
-        save_method = 'add';
-        // $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
-        // $('#modal_form').modal('show'); // show bootstrap modal
-        // $('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
+    function add(params) {
+
+      active = params;
+      save_method = 'add';
+      // $('#form')[0].reset(); // reset form on modals
+      $('.form-group').removeClass('has-error'); // clear error class
+      $('.help-block').empty(); // clear error string
+      // $('#modal_form').modal('show'); // show bootstrap modal
+      // $('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
     }
 
-    function edit(params, id)
-    {
-        active = params;
-        save_method = 'update';
-        edit_id = id;
-        // console.log("CKEDITOR.version ==",CKEDITOR.version);
+    function edit(params, id) {
+      active = params;
+      save_method = 'update';
+      edit_id = id;
+      // console.log("CKEDITOR.version ==",CKEDITOR.version);
 
-        // for (instance in CKEDITOR.instances) {
-        //   CKEDITOR.instances[instance].updateElement();
-        // }
+      // for (instance in CKEDITOR.instances) {
+      //   CKEDITOR.instances[instance].updateElement();
+      // }
 
-        // $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
-        
-        if(active == "berita") {
+      // $('#form')[0].reset(); // reset form on modals
+      $('.form-group').removeClass('has-error'); // clear error class
+      $('.help-block').empty(); // clear error string
 
-          var id_berita = $("#btnEditBerita"+id).attr("data-id");
-          var title = $("#btnEditBerita"+id).attr("data-title");
-          var category = $("#btnEditBerita"+id).attr("data-category");
-          var post = $("#btnEditBerita"+id).attr("data-post");
-          var filePreview = $("#btnEditBerita"+id).attr("data-picture");
-          // console.log(filePreview);
-          // modal.find('#link-file-upload3').attr("href","<?= site_url('upload/') ?>".data('picture'));
-          
-          // set data ckeditor3
-          CKEDITOR.instances["ckeditor2"].setData(post);
-          // var div = $("#btnEditBerita"+id).attr("data-title");
-          // var div = $("#btnEditBerita"+id).attr("data-title");
-          // var div = $("#btnEditBerita"+id).attr("data-title");
-          // var div = $("#btnEditBerita"+id).attr("data-title");
-  
-          // $("#title2").html("tes");
-          $('#id_berita2').attr("value", id_berita);
-          $('#title2').attr("value", title);
-          $('#category2').attr("value", category);
-          $('#ckeditor2').html(post);
-          $('#link-file-preview2').attr("href", "<?= site_url('assets/admin/upload/images/berita/') ?>"+filePreview);
-          $('#file-preview2').attr("src", "<?= site_url('assets/admin/upload/images/berita/') ?>"+filePreview);
-          // $('#custom-file-upload2').attr("value", "<?= site_url('upload/') ?>"+filePreview);
-          // $('#file-upload2').html("value", "<?= site_url('upload/') ?>"+filePreview);
-          // $('#file-selected2').html("<?= site_url('upload/') ?>"+filePreview);
+      if (active == "berita") {
+
+        var id_berita = $("#btnEditBerita" + id).attr("data-id");
+        var title = $("#btnEditBerita" + id).attr("data-title");
+        var category = $("#btnEditBerita" + id).attr("data-category");
+        var post = $("#btnEditBerita" + id).attr("data-post");
+        var filePreview = $("#btnEditBerita" + id).attr("data-picture");
+        // console.log(filePreview);
+        // modal.find('#link-file-upload3').attr("href","<?= site_url('upload/') ?>".data('picture'));
+
+        // set data ckeditor3
+        CKEDITOR.instances["ckeditor2"].setData(post);
+        // var div = $("#btnEditBerita"+id).attr("data-title");
+        // var div = $("#btnEditBerita"+id).attr("data-title");
+        // var div = $("#btnEditBerita"+id).attr("data-title");
+        // var div = $("#btnEditBerita"+id).attr("data-title");
+
+        // $("#title2").html("tes");
+        $('#id_berita2').attr("value", id_berita);
+        $('#title2').attr("value", title);
+        $('#category2').attr("value", category);
+        $('#ckeditor2').html(post);
+        $('#link-file-preview2').attr("href", "<?= site_url('assets/admin/upload/images/berita/') ?>" + filePreview);
+        $('#file-preview2').attr("src", "<?= site_url('assets/admin/upload/images/berita/') ?>" + filePreview);
+        // $('#custom-file-upload2').attr("value", "<?= site_url('upload/') ?>"+filePreview);
+        // $('#file-upload2').html("value", "<?= site_url('upload/') ?>"+filePreview);
+        // $('#file-selected2').html("<?= site_url('upload/') ?>"+filePreview);
         //   $('#file-upload3').attr("src","<?= site_url('upload/') ?>"+div.data('picture'));
         //       $('#title3').html(div.data('title'));
         //       $('#category3').html(div.data('category'));
         //      $('#ckeditor3').html(div.data('post'));
         //       $('#nama3').html(div.data('nama'));
         //  console.log(div);
-        }
-    
-        //Ajax Load data from ajax
-        // $.ajax({
-        //     url : "<?php echo site_url('coach/ajax_edit')?>/" + active,
-        //     type: "GET",
-        //     dataType: "JSON",
-        //     success: function(data)
-        //     {
-    
-        //         $('[name="judulMateri]').val(data.judulMateri);
-        //         $('[name="fileMateri"]').val(data.file);
-        //         // $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-        //         // $('.modal-title').text('Edit Person'); // Set title to Bootstrap modal title
-    
-        //         // $('#photo-preview').show(); // show photo preview modal
-        //     },
-        //     error: function (jqXHR, textStatus, errorThrown)
-        //     {
-        //         alert('Error get data from ajax');
-        //     }
-        // });
+      }
+
+      //Ajax Load data from ajax
+      // $.ajax({
+      //     url : "<?php echo site_url('coach/ajax_edit') ?>/" + active,
+      //     type: "GET",
+      //     dataType: "JSON",
+      //     success: function(data)
+      //     {
+
+      //         $('[name="judulMateri]').val(data.judulMateri);
+      //         $('[name="fileMateri"]').val(data.file);
+      //         // $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+      //         // $('.modal-title').text('Edit Person'); // Set title to Bootstrap modal title
+
+      //         // $('#photo-preview').show(); // show photo preview modal
+      //     },
+      //     error: function (jqXHR, textStatus, errorThrown)
+      //     {
+      //         alert('Error get data from ajax');
+      //     }
+      // });
     }
 
-    function reload_table()
-    {
+    function reload_table() {
       // $('#tabel').DataTable().ajax.reload();
-        // tabledata.ajax.reload();
-        // table.ajax.reload(); //reload datatable ajax
-        // $("#tabel_body").load(location.href+" #tabel_body>*","");
+      // tabledata.ajax.reload();
+      // table.ajax.reload(); //reload datatable ajax
+      // $("#tabel_body").load(location.href+" #tabel_body>*","");
 
-        location.reload();
-        return false;
-        
+      location.reload();
+      return false;
+
     }
 
     function delete_data(active, id, role_id = "") {
-      if(confirm('Are you sure delete this data?'))
-      {
-          // ajax delete data to database
-          $.ajax({
-              url : "<?php echo base_url("$active_controller/ajax_delete")?>/"+active+"/"+id+"/"+role_id,
-              type: "POST",
-              dataType: "JSON",
-              success: function(data)
-              {
-                  //if success reload ajax table
-                  // $('#modal_form').modal('hide');
-                  $('#successDeleteToast').toast('show');
-                    window.setTimeout(function(){location.reload()},3000)
-                  // reload_table();
-              },
-              error: function (jqXHR, textStatus, errorThrown)
-              {
-                  alert('Error deleting data');
-              }
-          });
-  
+      if (confirm('Are you sure delete this data?')) {
+        // ajax delete data to database
+        $.ajax({
+          url: "<?php echo base_url("$active_controller/ajax_delete") ?>/" + active + "/" + id + "/" + role_id,
+          type: "POST",
+          dataType: "JSON",
+          success: function(data) {
+            //if success reload ajax table
+            // $('#modal_form').modal('hide');
+            $('#successDeleteToast').toast('show');
+            window.setTimeout(function() {
+              location.reload()
+            }, 3000)
+            // reload_table();
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            alert('Error deleting data');
+          }
+        });
+
       }
 
     }
 
-    function refresh_form()
-    {
-      if(save_method == 'add') {
-        if(active == "berita") {
+    function refresh_form() {
+      if (save_method == 'add') {
+        if (active == "berita") {
           $('.form_add')[0].reset();
           CKEDITOR.instances.ckeditor.setData('');
-        }else if(active == 'user') {
+        } else if (active == 'user') {
           $('.form_add')[0].reset();
-        }else if(active == 'services') {
+        } else if (active == 'services') {
           $('#form_add_services')[0].reset();
-        }else if(active == 'partners') {
+        } else if (active == 'partners') {
           $('#form_add_partners')[0].reset();
-        }else if(active == 'links') {
+        } else if (active == 'links') {
           $('#form_add_links')[0].reset();
-        }else{
+        } else {
           $('.form_add')[0].reset();
         }
-      } 
-      else 
-      {
-        if(active == "coaching_schedule") {
+      } else {
+        if (active == "coaching_schedule") {
           $('[name="senin"]').val('');
           $('[name="selasa"]').val('');
           $('[name="rabu"]').val('');
@@ -1095,285 +1166,300 @@
           $('[name="jumat"]').val('');
           $('[name="sabtu"]').val('');
           $('[name="minggu"]').val('');
-        }
-        else if(active == "berita")
-        {
+        } else if (active == "berita") {
           $('[name="title"]').val('');
           $('[name="category"]').val('');
-          
+
           CKEDITOR.instances.ckeditor2.setData('');
           $('#remove_photo').prop('checked', false);
           $('[name="picture"]').val('');
           // $('.form_edit')[0].reset();
-        }else if(active == "user"){
+        } else if (active == "user") {
           $('#username2').val('');
           $('#email2').val('');
           $('#password2').val('');
-        }else {
-          $('.form_edit'+edit_id+'')[0].reset();
+        } else {
+          $('.form_edit' + edit_id + '')[0].reset();
         }
       }
-        // $('form :input').val('');
-        // $('#labelMateri').html("Judul Materi");
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
+      // $('form :input').val('');
+      // $('#labelMateri').html("Judul Materi");
+      $('.form-group').removeClass('has-error'); // clear error class
+      $('.help-block').empty(); // clear error string
     }
-    
 
-    function save()
-    {
-        $('.btnSave').text('saving...'); //change button text
-        $('.btnSave').attr('disabled',true); //set button disable
 
-        var url, form;
+    function save() {
+      $('.btnSave').text('saving...'); //change button text
+      $('.btnSave').attr('disabled', true); //set button disable
 
-        if(active == 'berita') {
-            for (instance in CKEDITOR.instances) {
-                CKEDITOR.instances[instance].updateElement();
-            }
+      var url, form;
+
+      if (active == 'berita') {
+        for (instance in CKEDITOR.instances) {
+          CKEDITOR.instances[instance].updateElement();
         }
+      }
 
-        if(save_method == 'add') {
-          if(active == "berita") {
-            form = $('#form_add')[0];
-          }else if(active == "testimonial"){
-            form = $('#form_add_testimonial')[0];
-          }else if(active == "services"){
-            form = $('#form_add_services')[0];
-          }else if(active == "partners"){
-            form = $('#form_add_partners')[0];
-          }else if(active == "links"){
-            form = $('#form_add_links')[0];
-          }else{
-            form = $('#form_add')[0];
-          }
-          url = "<?php echo base_url("$active_controller/ajax_add")?>/"+active;
+      if (save_method == 'add') {
+        if (active == "berita") {
+          form = $('#form_add')[0];
+        } else if (active == "testimonial") {
+          form = $('#form_add_testimonial')[0];
+        } else if (active == "services") {
+          form = $('#form_add_services')[0];
+        } else if (active == "partners") {
+          form = $('#form_add_partners')[0];
+        } else if (active == "links") {
+          form = $('#form_add_links')[0];
         } else {
-          if(active == "berita") {
-            form = $('#form_edit')[0];
-          }else if(active == "user") {
-            form = $('#form_edit')[0];
-          }else if(active == "data_responden") {
-            form = $('#form_edit')[0];
-          }else if((active == "about_visimisi") || (active == "about_struktur")) {
-            if(active == "about_visimisi"){
-              form = $('#form_edit_visimisi')[0];
-            }else{
-              form = $('#form_edit_struktur')[0];
-            }
-          }else if(active == "testimonial") {
-            form = $('#form_edit_testimonial')[0];
-          }else if(active == "contact") {
-            form = $('#form_edit_contact')[0];
-          }else if(active == "services") {
-            form = $('#form_edit_services')[0];
-          }else if(active == "partners") {
-            form = $('#form_edit_partners')[0];
-          }else if(active == "zoom_request") {
-            form = $('#form_edit')[0];
-          }else if(active == "carousel") {
-            form = $('#form_edit_carousel')[0];
-          }else if(active == "edit_foto_profile") {
-            form = $('#form_edit_foto_profile')[0];
-          }else if(active == "logo") {
-            form = $('#form_edit_logo')[0];
-          }else if(active == "materi") {
-            form = $('#form_edit_materi')[0];
-          }else if(active == "links") {
-            form = $('#form_edit_links')[0];
-          }else {
-            form = $('#form_edit'+edit_id+'')[0];
-          }
-            url = "<?php echo base_url("$active_controller/ajax_update")?>/"+active;
+          form = $('#form_add')[0];
         }
-        
-        var formData = new FormData(form);
+        url = "<?php echo base_url("$active_controller/ajax_add") ?>/" + active;
+      } else {
+        if (active == "berita") {
+          form = $('#form_edit')[0];
+        } else if (active == "user") {
+          form = $('#form_edit')[0];
+        } else if (active == "data_responden") {
+          form = $('#form_edit')[0];
+        } else if ((active == "about_visimisi") || (active == "about_struktur")) {
+          if (active == "about_visimisi") {
+            form = $('#form_edit_visimisi')[0];
+          } else {
+            form = $('#form_edit_struktur')[0];
+          }
+        } else if (active == "testimonial") {
+          form = $('#form_edit_testimonial')[0];
+        } else if (active == "contact") {
+          form = $('#form_edit_contact')[0];
+        } else if (active == "services") {
+          form = $('#form_edit_services')[0];
+        } else if (active == "partners") {
+          form = $('#form_edit_partners')[0];
+        } else if (active == "zoom_request") {
+          form = $('#form_edit')[0];
+        } else if (active == "carousel") {
+          form = $('#form_edit_carousel')[0];
+        } else if (active == "edit_foto_profile") {
+          form = $('#form_edit_foto_profile')[0];
+        } else if (active == "logo") {
+          form = $('#form_edit_logo')[0];
+        } else if (active == "materi") {
+          form = $('#form_edit_materi')[0];
+        } else if (active == "links") {
+          form = $('#form_edit_links')[0];
+        } else {
+          form = $('#form_edit' + edit_id + '')[0];
+        }
+        url = "<?php echo base_url("$active_controller/ajax_update") ?>/" + active;
+      }
 
-        // console.log(form);
+      var formData = new FormData(form);
 
-        // ajax adding data to database
-        $.ajax({
-            url : url,
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            dataType: "JSON",
-            success: function(data)
-            {
-                if(data.status) //if success close modal and reload ajax table
-                {
-                  if(save_method == 'add') {
-                    $('#addModal').modal('hide');
-                    $('.modal').modal('hide');
-                    $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();
-                    // ('#editModal'.editModalId).modal('hide');
-                    $('#successToast').toast('show');
-                    window.setTimeout(function(){location.reload()},3000)
-                  } else {
-                    if(active == "profile") {
-                      $('#editProfileModal').modal('hide');
-                      $('body').removeClass('modal-open');
-                      $('.modal-backdrop').remove();
-                      $('#successEditToast').toast('show');
-                      window.setTimeout(function(){location.reload()},3000)
-                    }else if(active == "berita") {
-                      $('#editModal'+edit_id+'').modal('hide');
-                      $('body').removeClass('modal-open');
-                      $('.modal-backdrop').remove();
-                      $('#successEditToast').toast('show');
-                      window.setTimeout(function(){location.reload()},3000)
-                    }else if(active == "user") {
-                      $('#editModal').modal('hide');
-                      $('body').removeClass('modal-open');
-                      $('.modal-backdrop').remove();
-                      $('#successEditToast').toast('show');
-                      window.setTimeout(function(){location.reload()},3000)
-                    }else if((active == "about_visimisi") || (active == "about_struktur")){
-                      $('.modal').modal('hide');
-                      $('body').removeClass('modal-open');
-                      $('.modal-backdrop').remove();
-                      $('#successEditToast').toast('show');
-                      window.setTimeout(function(){location.reload()},3000)
-                    }else if(active == "testimonial"){
-                      $('.modal').modal('hide');
-                      $('body').removeClass('modal-open');
-                      $('.modal-backdrop').remove();
-                      $('#successEditToast').toast('show');
-                      window.setTimeout(function(){location.reload()},3000)
-                    }else if(active == "contact"){
-                      $('.modal').modal('hide');
-                      $('body').removeClass('modal-open');
-                      $('.modal-backdrop').remove();
-                      $('#successEditToast').toast('show');
-                      window.setTimeout(function(){location.reload()},3000)
-                    }else if(active == "services"){
-                      $('.modal').modal('hide');
-                      $('body').removeClass('modal-open');
-                      $('.modal-backdrop').remove();
-                      $('#successEditToast').toast('show');
-                      window.setTimeout(function(){location.reload()},3000)
-                    }else if(active == "partners"){
-                      $('.modal').modal('hide');
-                      $('body').removeClass('modal-open');
-                      $('.modal-backdrop').remove();
-                      $('#successEditToast').toast('show');
-                      window.setTimeout(function(){location.reload()},3000)
-                    }else if(active == "zoom_request"){
-                      $('.modal').modal('hide');
-                      $('body').removeClass('modal-open');
-                      $('.modal-backdrop').remove();
-                      $('#successEditToast').toast('show');
-                      window.setTimeout(function(){location.reload()},3000)
-                    }else if(active == "carousel"){
-                      $('.modal').modal('hide');
-                      $('body').removeClass('modal-open');
-                      $('.modal-backdrop').remove();
-                      $('#successEditToast').toast('show');
-                      window.setTimeout(function(){location.reload()},3000)
-                    }else{
-                      $('.modal').modal('hide');
-                      $('body').removeClass('modal-open');
-                      $('.modal-backdrop').remove();
-                      $('#successEditToast').toast('show');
-                      window.setTimeout(function(){location.reload()},3000)
-                    }
-                  }
-                }
-                else
-                {
-                    for (var i = 0; i < data.inputerror.length; i++) 
-                    {
-                      if(save_method == 'add') {
-                        $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
-                        $('[name="'+data.inputerror[i]+'"]').parent().next().text(data.error_string[i]); //select span help-block class set text error string
-                      } else {
-                        $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
-                        $('[name="'+data.inputerror[i]+'"]').parent().next().text(data.error_string[i]); //select span help-block class set text error string
+      // console.log(form);
 
-                      }
-                    }
-                    $('.btnSave').html(`save <i class="fa fa-check"></i>`); //change button text
-                    $('.btnSave').attr('disabled',false); //set button enable 
-                }
-
-
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error adding / update data');
-                $('.btnSave').html(`save <i class="fa fa-check"></i>`); //change button text
-                $('.btnSave').attr('disabled',false); //set button enable 
-
+      // ajax adding data to database
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "JSON",
+        success: function(data) {
+          if (data.status) //if success close modal and reload ajax table
+          {
+            if (save_method == 'add') {
+              $('#addModal').modal('hide');
+              $('.modal').modal('hide');
+              $('body').removeClass('modal-open');
+              $('.modal-backdrop').remove();
+              // ('#editModal'.editModalId).modal('hide');
+              $('#successToast').toast('show');
+              window.setTimeout(function() {
+                location.reload()
+              }, 3000)
+            } else {
+              if (active == "profile") {
+                $('#editProfileModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#successEditToast').toast('show');
+                window.setTimeout(function() {
+                  location.reload()
+                }, 3000)
+              } else if (active == "berita") {
+                $('#editModal' + edit_id + '').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#successEditToast').toast('show');
+                window.setTimeout(function() {
+                  location.reload()
+                }, 3000)
+              } else if (active == "user") {
+                $('#editModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#successEditToast').toast('show');
+                window.setTimeout(function() {
+                  location.reload()
+                }, 3000)
+              } else if ((active == "about_visimisi") || (active == "about_struktur")) {
+                $('.modal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#successEditToast').toast('show');
+                window.setTimeout(function() {
+                  location.reload()
+                }, 3000)
+              } else if (active == "testimonial") {
+                $('.modal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#successEditToast').toast('show');
+                window.setTimeout(function() {
+                  location.reload()
+                }, 3000)
+              } else if (active == "contact") {
+                $('.modal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#successEditToast').toast('show');
+                window.setTimeout(function() {
+                  location.reload()
+                }, 3000)
+              } else if (active == "services") {
+                $('.modal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#successEditToast').toast('show');
+                window.setTimeout(function() {
+                  location.reload()
+                }, 3000)
+              } else if (active == "partners") {
+                $('.modal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#successEditToast').toast('show');
+                window.setTimeout(function() {
+                  location.reload()
+                }, 3000)
+              } else if (active == "zoom_request") {
+                $('.modal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#successEditToast').toast('show');
+                window.setTimeout(function() {
+                  location.reload()
+                }, 3000)
+              } else if (active == "carousel") {
+                $('.modal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#successEditToast').toast('show');
+                window.setTimeout(function() {
+                  location.reload()
+                }, 3000)
+              } else {
+                $('.modal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#successEditToast').toast('show');
+                window.setTimeout(function() {
+                  location.reload()
+                }, 3000)
+              }
             }
-        });
+          } else {
+            for (var i = 0; i < data.inputerror.length; i++) {
+              if (save_method == 'add') {
+                $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                $('[name="' + data.inputerror[i] + '"]').parent().next().text(data.error_string[i]); //select span help-block class set text error string
+              } else {
+                $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                $('[name="' + data.inputerror[i] + '"]').parent().next().text(data.error_string[i]); //select span help-block class set text error string
+
+              }
+            }
+            $('.btnSave').html(`save <i class="fa fa-check"></i>`); //change button text
+            $('.btnSave').attr('disabled', false); //set button enable 
+          }
+
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert('Error adding / update data');
+          $('.btnSave').html(`save <i class="fa fa-check"></i>`); //change button text
+          $('.btnSave').attr('disabled', false); //set button enable 
+
+        }
+      });
     }
-    
   </script>
- 
+
   <!-- script for coaching -->
-  <script type="text/javascript"> 
+  <script type="text/javascript">
     $(function() {
-        $('#schedule').click(function() {
-            $('#report_div').hide();
-            $('#schedule_div').show();
-            return false;
-        }); 
-        
-        $('#report').click(function() {
-            $('#schedule_div').hide();
-            $('#report_div').show();
-            return false;
-        });
-        
-        $('#btnBasicInfo').click(function() {
-            $('#settings_profile').hide();
-            $('#basic_info').show();
-            return false;
-        });
+      $('#schedule').click(function() {
+        $('#report_div').hide();
+        $('#schedule_div').show();
+        return false;
+      });
 
-        $('#btnSettings').click(function() {
-            $('#basic_info').hide();
-            $('#settings_profile').show();
-            return false;
-          });
-          
-          $("#checkOther").click(function() {
-            // this function will get executed every time the #home element is clicked (or tab-spacebar changed)
-            if($(this).is(":checked")) // "this" refers to the element that fired the event
-            {
-              $('#checkOtherField').show();
-            }else{
-              $('#checkOtherField').hide();
-            }
-        });
+      $('#report').click(function() {
+        $('#schedule_div').hide();
+        $('#report_div').show();
+        return false;
+      });
 
-        // $('#btnApprove').click(function() {
-        //   $('#successToast').toast('show');
-        //   window.setTimeout(function(){location.reload()},3000)
-        //     // return false;
-        // });
-        
-        // $('#btnReject').click(function() {
-        //   $('#successDeleteToast').toast('show');
-        //   window.setTimeout(function(){location.reload()},3000)
-        //     // return false;
-        // });
+      $('#btnBasicInfo').click(function() {
+        $('#settings_profile').hide();
+        $('#basic_info').show();
+        return false;
+      });
 
-        $('#btnTambahBerita').click(function() {
-            // $(this).text(function(i, text){
-            //     return text === "PUSH ME" ? "DON'T PUSH ME" : "PUSH ME";
-            // }
-            // console.log($("#btnTambahBerita").html().find(".fas"));
-            $(this).find('i').toggleClass('fa-plus-circle fa-minus-circle');
-            $(this).toggleClass('btn-success btn-outline-success');
-            $('#data-table').toggle();
-            $('#form-tambah-berita').toggle();
-            return false;
-        });
+      $('#btnSettings').click(function() {
+        $('#basic_info').hide();
+        $('#settings_profile').show();
+        return false;
+      });
 
-        
+      $("#checkOther").click(function() {
+        // this function will get executed every time the #home element is clicked (or tab-spacebar changed)
+        if ($(this).is(":checked")) // "this" refers to the element that fired the event
+        {
+          $('#checkOtherField').show();
+        } else {
+          $('#checkOtherField').hide();
+        }
+      });
+
+      // $('#btnApprove').click(function() {
+      //   $('#successToast').toast('show');
+      //   window.setTimeout(function(){location.reload()},3000)
+      //     // return false;
+      // });
+
+      // $('#btnReject').click(function() {
+      //   $('#successDeleteToast').toast('show');
+      //   window.setTimeout(function(){location.reload()},3000)
+      //     // return false;
+      // });
+
+      $('#btnTambahBerita').click(function() {
+        // $(this).text(function(i, text){
+        //     return text === "PUSH ME" ? "DON'T PUSH ME" : "PUSH ME";
+        // }
+        // console.log($("#btnTambahBerita").html().find(".fas"));
+        $(this).find('i').toggleClass('fa-plus-circle fa-minus-circle');
+        $(this).toggleClass('btn-success btn-outline-success');
+        $('#data-table').toggle();
+        $('#form-tambah-berita').toggle();
+        return false;
+      });
+
+
     });
   </script>
 
