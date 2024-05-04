@@ -310,7 +310,8 @@
                                     data-idresponden="<?= $value['id_responden'] ?>"
                                     data-iduser="<?= $id_user ?>"
                                     data-kuesioner="<?= 'pretest_kontrol' ?>"
-                                    data-bs-toggle="modal" data-bs-target="#readModalPretestKontrol<?=$value['id']?>"
+                                    data-responden="<?php echo htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8'); ?>"
+                                    data-bs-toggle="modal" data-bs-target="#readModal"
                                     onclick="edit('<?=$active?>', '<?=$value['id']?>')">
                                     <button class="btn btn-<?php
                                     $pretest_kontrol_exist = false; 
@@ -342,540 +343,6 @@
                                     ?>"><span class="fa fa-eye"></span></button>
                                     
                               </a>
-                              <!-- modal read -->
-                              <div class="modal fade top-2" id="readModalPretestKontrol<?=$value['id']?>" tabindex="-1" role="dialog" aria-labelledby="readModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                      <div class="modal-content">
-                                          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                            <div class="bg-gradient-primary shadow-info border-radius-lg pt-4 pb-3">
-                                              <h6 class="text-white text-capitalize ps-3 text-center">View Data Kuesioner <span class="fa fa-fw fa-eye"></span></h6>
-                                            </div>
-                                          </div>
-                                          <div class="modal-body text-start">
-                                            <form action="#">
-                                            <div class="container border border-1 mb-4 table-responsive">
-                                                    <div class="card-header my-4 p-0">
-                                                        <div class="row justify-content-center">
-                                                            <div class="col-md-8 d-flex align-items-center">
-                                                                <h6 class="mb-0 text-center">Self Management Hipertensi Pada Ibu Hamil Puskesmas Masamba Tahun 2023 (Pretest Kontrol)</h6>
-                                                            </div>
-                                                            <!-- <div class="col-md-4 text-end">
-                                                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#about_visimisiModal" onclick="edit('about_visimisi', '1')">
-                                                                <i class="fas fa-edit text-info text-md" data-bs-toggle="tooltip" data-bs-placement="top" title="" aria-hidden="true" data-bs-original-title="Edit" aria-label="Edit"></i><span class="sr-only">Edit</span>
-                                                            </a>
-                                                            </div> -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="container">
-                                                      <?php if($this->session->flashdata('flash')) : ?>
-                                                        <div class="flash-data" data-kuesioner="Postest Intervensi" data-flashdata="<?= $this->session->flashdata('flash') ?>"></div>
-                                                      <?php endif; ?>
-                                                      <div class="row mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
-                                                        <div class="col-md-7">
-                                                          <h6 class="data_demografi1">A. Data Demografi</h6>
-                                                          <ol id="list-kuesioner" class="list-kuesioner">
-                                                            <li>
-                                                              <div class="form-group mb-4">
-                                                                <div class="input-group input-group-static my-3">
-                                                                  <label id="label_nama" for="nama1"><?= $kuesioner_pretest_kontrol[0]['pertanyaan'] ?></label>
-                                                                  <input type="text" name="nama1" class="form-control" value="<?= $value['qk1_d'] ?>" id="nama1" required>
-                                                                </div>
-                                                              <div class="help-block form-text mt-n2"></div>
-                                                              </div>
-                                                            </li>
-                                                            <li>
-                                                              <div class="form-group mb-4">
-                                                                <div class="input-group input-group-static my-3">
-                                                                  <label id="usia1" for="usia1"><?= $kuesioner_pretest_kontrol[1]['pertanyaan'] ?></label>
-                                                                  <input type="number" name="usia1" class="form-control" value="<?= $value['qk2_d'] ?>" id="usia1" required>
-                                                                </div>
-                                                              <div class="help-block form-text mt-n2"></div>
-                                                              </div>
-                                                            </li>
-                                                            <!-- Pendidikan -->
-                                                            <li><?= $kuesioner_pretest_kontrol[2]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_pretest_kontrol[2]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="pendidikan1" id="pendidikan_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_kontrol[2]['jawaban'.$i] ?>" <?= ($kuesioner_pretest_kontrol[2]['jawaban'.$i] == $value['qk3_d']) ? "checked" : "" ?> required>
-                                                                  <label for="pendidikan_jawaban1<?= $i ?>"><?= $kuesioner_pretest_kontrol[2]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- pekerjaan -->
-                                                            <li><?= $kuesioner_pretest_kontrol[3]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_pretest_kontrol[3]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="pekerjaan1" id="pekerjaan_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_kontrol[3]['jawaban'.$i] ?>" <?= ($kuesioner_pretest_kontrol[3]['jawaban'.$i] == $value['qk4_d']) ? "checked" : "" ?> required>
-                                                                  <label for="pekerjaan_jawaban1<?= $i ?>"><?= $kuesioner_pretest_kontrol[3]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- riwayat merokok -->
-                                                            <li><?= $kuesioner_pretest_kontrol[4]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_pretest_kontrol[4]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="riwayat_merokok1" id="riwayat_merokok_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_kontrol[4]['jawaban'.$i] ?>" <?= ($kuesioner_pretest_kontrol[4]['jawaban'.$i] == $value['qk5_d']) ? "checked" : "" ?> required>
-                                                                  <label for="riwayat_merokok_jawaban1<?= $i ?>"><?= $kuesioner_pretest_kontrol[4]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- konsumsi alkohol -->
-                                                            <li><?= $kuesioner_pretest_kontrol[5]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_pretest_kontrol[5]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="konsumsi_alkohol1" id="konsumsi_alkohol_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_kontrol[5]['jawaban'.$i] ?>" <?= ($kuesioner_pretest_kontrol[5]['jawaban'.$i] == $value['qk6_d']) ? "checked" : "" ?> required>
-                                                                  <label for="konsumsi_alkohol_jawaban1<?= $i ?>"><?= $kuesioner_pretest_kontrol[5]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- penyakit -->
-                                                            <li><?= $kuesioner_pretest_kontrol[6]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_pretest_kontrol[6]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="penyakit1" id="penyakit_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_kontrol[6]['jawaban'.$i] ?>" <?= ($kuesioner_pretest_kontrol[6]['jawaban'.$i] == substr($value['qk7_d'],0,2)) ? "checked" : ($kuesioner_pretest_kontrol[6]['jawaban'.$i] == $value['qk7_d'] ? "checked" : "") ?> required>
-                                                                  <label for="penyakit_jawaban1<?= $i ?>"><?= $kuesioner_pretest_kontrol[6]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    if($kuesioner_pretest_kontrol[6]['jawaban'.$i] == "Ya") :
-                                                                  ?>
-                                                                  <div class="div_desc_penyakit1 form-group mb-4" id="div_desc_penyakit1" style="display: <?= (substr($value['qk7_d'],0,2) == "Ya") ? "block" : "none" ?>">
-                                                                    <div class="input-group input-group-static my-3">
-                                                                      <input type="text" name="desc_penyakit1" class="form-control" id="desc_penyakit1" placeholder="Masukkan deskripsi penyakit.." value="<?= (substr($value['qk7_d'],0,2) == "Ya") ? substr($value['qk7_d'],4) : "" ?>" <?= (substr($value['qk7_d'],0,2) == "Ya") ? "required" : "" ?>>
-                                                                    </div>
-                                                                  <div class="help-block form-text"></div>
-                                                                  </div>
-                                                                  <?php
-                                                                    endif;
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- Tekanan Darah -->
-                                                            <li><?= $kuesioner_pretest_kontrol[7]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <?php
-                                                                $exist = false;
-                                                                if(isset($value['qk8_d']) && !empty($value['qk8_d'])) :
-                                                                  $exist = true;
-                                                                  $tekanan_darah = explode(',', $value['qk8_d']);
-                                                                endif;
-                                                                ?>
-                                                                <li>
-                                                                  Sistolik <?= ($exist)  ? $tekanan_darah[0] : "?" ?> mmHg (diisi oleh peneliti)
-                                                                </li>
-                                                                <li>
-                                                                  Diastolik <?= ($exist)  ? $tekanan_darah[1] : "?" ?> mmHg (diisi oleh peneliti)
-                                                                </li>
-                                                              </ul>
-                                                            </li>
-                                                          </ol>
-                                                        </div>
-                                                        <div class="col-md-12 mt-5">
-                                                          <h6 class="self_management1">B. Self Management</h6>
-                                                          <p>
-                                                            Kuesioner ini bertujuan untuk menilai seberapa sering anda melakukan aktifitas untuk mengontrol hipertensi dalam beberapa bulan terakhir. Tidak ada jawaban benar atau salah. Karenanya, jawablah secara jujur pada masing-masing pernyataan untuk menggambarkan perilaku anda yang sebenarnya dengan memberikan tanda silang (√) pada kolom yang sesuai. Gunakan 4 pilihan jawaban sebagai berikut :
-                                                            <br> 
-                                                            1 = Tidak pernah
-                                                            <br>
-                                                            2 = Jarang
-                                                            <br>
-                                                            3 = Kadang-kadang
-                                                            <br>
-                                                            4 = Selalu
-                                                          </p>
-                                                          <!-- integrasi diri -->
-                                                          <h6 class="mt-4">Integrasi Diri</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                $temp = 0;
-                                                                $temp_qk = 9;
-                                                                for ($i=0; $i < 10; $i++) :
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_pretest_kontrol[8+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="integrasi_diri_error1<?= $i+1 ?>" id="integrasi_diri_error1<?= $i+1 ?>" >
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- regulasi diri -->
-                                                          <h6 class="mt-4">Regulasi Diri</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_pretest_kontrol[18+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="regulasi_diri_error1<?= $i+1 ?>" id="regulasi_diri_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Interaksi dengan tenaga kesehatan dan lainnya -->
-                                                          <h6 class="mt-4">Interaksi dengan tenaga kesehatan dan lainnya</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_pretest_kontrol[28+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="idtk_error1<?= $i+1 ?>" id="itdk_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                              $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Pemantauan tekanana darah -->
-                                                          <h6 class="mt-4">Pemantauan Tekanana Darah</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_pretest_kontrol[38+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="ptd_error1<?= $i+1 ?>" id="ptd_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Kepatuhan terhadap aturan yang dianjurkan -->
-                                                          <h6 class="mt-4">Kepatuhan terhadap aturan yang dianjurkan</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_pretest_kontrol[48+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="ktayd_error1<?= $i+1 ?>" id="ktayd_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                            </form>
-                                          </div>
-                                          <div class="modal-footer">
-                                              <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- end of modal read -->
                               <a class="<?php
                                     $pretest_kontrol_exist = false; 
                                     foreach ($applied_kuesioner_responden as $key2 => $value2){
@@ -986,7 +453,8 @@
                                     data-idresponden="<?= $value['id_responden'] ?>"
                                     data-iduser="<?= $id_user ?>"
                                     data-kuesioner="<?= 'pretest_intervensi' ?>"
-                                    data-bs-toggle="modal" data-bs-target="#readModalPretestIntervensi<?=$value['id']?>"
+                                    data-responden="<?php echo htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8'); ?>"
+                                    data-bs-toggle="modal" data-bs-target="#readModal"
                                     onclick="edit('<?=$active?>', '<?=$value['id']?>')">
                                     <button class="btn btn-<?php
                                     $pretest_intervensi_exist = false; 
@@ -1018,540 +486,6 @@
                                     ?>"><span class="fa fa-eye"></span></button>
                                     
                               </a>
-                              <!-- modal read -->
-                              <div class="modal fade top-2" id="readModalPretestIntervensi<?=$value['id']?>" tabindex="-1" role="dialog" aria-labelledby="readModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                      <div class="modal-content">
-                                          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                            <div class="bg-gradient-primary shadow-info border-radius-lg pt-4 pb-3">
-                                              <h6 class="text-white text-capitalize ps-3 text-center">View Data Kuesioner <span class="fa fa-fw fa-eye"></span></h6>
-                                            </div>
-                                          </div>
-                                          <div class="modal-body text-start">
-                                            <form action="#">
-                                            <div class="container border border-1 mb-4 table-responsive">
-                                                    <div class="card-header my-4 p-0">
-                                                        <div class="row justify-content-center">
-                                                            <div class="col-md-8 d-flex align-items-center">
-                                                                <h6 class="mb-0 text-center">Self Management Hipertensi Pada Ibu Hamil Puskesmas Masamba Tahun 2023 (Pretest Intervensi)</h6>
-                                                            </div>
-                                                            <!-- <div class="col-md-4 text-end">
-                                                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#about_visimisiModal" onclick="edit('about_visimisi', '1')">
-                                                                <i class="fas fa-edit text-info text-md" data-bs-toggle="tooltip" data-bs-placement="top" title="" aria-hidden="true" data-bs-original-title="Edit" aria-label="Edit"></i><span class="sr-only">Edit</span>
-                                                            </a>
-                                                            </div> -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="container">
-                                                      <?php if($this->session->flashdata('flash')) : ?>
-                                                        <div class="flash-data" data-kuesioner="Pretest Intervensi" data-flashdata="<?= $this->session->flashdata('flash') ?>"></div>
-                                                      <?php endif; ?>
-                                                      <div class="row mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
-                                                        <div class="col-md-7">
-                                                          <h6 class="data_demografi1">A. Data Demografi</h6>
-                                                          <ol id="list-kuesioner" class="list-kuesioner">
-                                                            <li>
-                                                              <div class="form-group mb-4">
-                                                                <div class="input-group input-group-static my-3">
-                                                                  <label id="label_nama" for="nama1"><?= $kuesioner_pretest_intervensi[0]['pertanyaan'] ?></label>
-                                                                  <input type="text" name="nama1" class="form-control" value="<?= $value['qk1_d'] ?>" id="nama1" required>
-                                                                </div>
-                                                              <div class="help-block form-text mt-n2"></div>
-                                                              </div>
-                                                            </li>
-                                                            <li>
-                                                              <div class="form-group mb-4">
-                                                                <div class="input-group input-group-static my-3">
-                                                                  <label id="usia1" for="usia1"><?= $kuesioner_pretest_intervensi[1]['pertanyaan'] ?></label>
-                                                                  <input type="number" name="usia1" class="form-control" value="<?= $value['qk2_d'] ?>" id="usia1" required>
-                                                                </div>
-                                                              <div class="help-block form-text mt-n2"></div>
-                                                              </div>
-                                                            </li>
-                                                            <!-- Pendidikan -->
-                                                            <li><?= $kuesioner_pretest_intervensi[2]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_pretest_intervensi[2]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="pendidikan1" id="pendidikan_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_intervensi[2]['jawaban'.$i] ?>" <?= ($kuesioner_pretest_intervensi[2]['jawaban'.$i] == $value['qk3_d']) ? "checked" : "" ?> required>
-                                                                  <label for="pendidikan_jawaban1<?= $i ?>"><?= $kuesioner_pretest_intervensi[2]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- pekerjaan -->
-                                                            <li><?= $kuesioner_pretest_intervensi[3]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_pretest_intervensi[3]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="pekerjaan1" id="pekerjaan_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_intervensi[3]['jawaban'.$i] ?>" <?= ($kuesioner_pretest_intervensi[3]['jawaban'.$i] == $value['qk4_d']) ? "checked" : "" ?> required>
-                                                                  <label for="pekerjaan_jawaban1<?= $i ?>"><?= $kuesioner_pretest_intervensi[3]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- riwayat merokok -->
-                                                            <li><?= $kuesioner_pretest_intervensi[4]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_pretest_intervensi[4]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="riwayat_merokok1" id="riwayat_merokok_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_intervensi[4]['jawaban'.$i] ?>" <?= ($kuesioner_pretest_intervensi[4]['jawaban'.$i] == $value['qk5_d']) ? "checked" : "" ?> required>
-                                                                  <label for="riwayat_merokok_jawaban1<?= $i ?>"><?= $kuesioner_pretest_intervensi[4]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- konsumsi alkohol -->
-                                                            <li><?= $kuesioner_pretest_intervensi[5]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_pretest_intervensi[5]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="konsumsi_alkohol1" id="konsumsi_alkohol_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_intervensi[5]['jawaban'.$i] ?>" <?= ($kuesioner_pretest_intervensi[5]['jawaban'.$i] == $value['qk6_d']) ? "checked" : "" ?> required>
-                                                                  <label for="konsumsi_alkohol_jawaban1<?= $i ?>"><?= $kuesioner_pretest_intervensi[5]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- penyakit -->
-                                                            <li><?= $kuesioner_pretest_intervensi[6]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_pretest_intervensi[6]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="penyakit1" id="penyakit_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_intervensi[6]['jawaban'.$i] ?>" <?= ($kuesioner_pretest_intervensi[6]['jawaban'.$i] == substr($value['qk7_d'],0,2)) ? "checked" : ($kuesioner_pretest_intervensi[6]['jawaban'.$i] == $value['qk7_d'] ? "checked" : "") ?> required>
-                                                                  <label for="penyakit_jawaban1<?= $i ?>"><?= $kuesioner_pretest_intervensi[6]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    if($kuesioner_pretest_intervensi[6]['jawaban'.$i] == "Ya") :
-                                                                  ?>
-                                                                  <div class="div_desc_penyakit1 form-group mb-4" id="div_desc_penyakit1" style="display: <?= (substr($value['qk7_d'],0,2) == "Ya") ? "block" : "none" ?>">
-                                                                    <div class="input-group input-group-static my-3">
-                                                                      <input type="text" name="desc_penyakit1" class="form-control" id="desc_penyakit1" placeholder="Masukkan deskripsi penyakit.." value="<?= (substr($value['qk7_d'],0,2) == "Ya") ? substr($value['qk7_d'],4) : "" ?>" <?= (substr($value['qk7_d'],0,2) == "Ya") ? "required" : "" ?>>
-                                                                    </div>
-                                                                  <div class="help-block form-text"></div>
-                                                                  </div>
-                                                                  <?php
-                                                                    endif;
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- Tekanan Darah -->
-                                                            <li><?= $kuesioner_pretest_intervensi[7]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <?php
-                                                                $exist = false;
-                                                                if(isset($value['qk8_d']) && !empty($value['qk8_d'])) :
-                                                                  $exist = true;
-                                                                  $tekanan_darah = explode(',', $value['qk8_d']);
-                                                                endif;
-                                                                ?>
-                                                                <li>
-                                                                  Sistolik <?= ($exist)  ? $tekanan_darah[0] : "?" ?> mmHg (diisi oleh peneliti)
-                                                                </li>
-                                                                <li>
-                                                                  Diastolik <?= ($exist)  ? $tekanan_darah[1] : "?" ?> mmHg (diisi oleh peneliti)
-                                                                </li>
-                                                              </ul>
-                                                            </li>
-                                                          </ol>
-                                                        </div>
-                                                        <div class="col-md-12 mt-5">
-                                                          <h6 class="self_management1">B. Self Management</h6>
-                                                          <p>
-                                                            Kuesioner ini bertujuan untuk menilai seberapa sering anda melakukan aktifitas untuk mengontrol hipertensi dalam beberapa bulan terakhir. Tidak ada jawaban benar atau salah. Karenanya, jawablah secara jujur pada masing-masing pernyataan untuk menggambarkan perilaku anda yang sebenarnya dengan memberikan tanda silang (√) pada kolom yang sesuai. Gunakan 4 pilihan jawaban sebagai berikut :
-                                                            <br> 
-                                                            1 = Tidak pernah
-                                                            <br>
-                                                            2 = Jarang
-                                                            <br>
-                                                            3 = Kadang-kadang
-                                                            <br>
-                                                            4 = Selalu
-                                                          </p>
-                                                          <!-- integrasi diri -->
-                                                          <h6 class="mt-4">Integrasi Diri</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                $temp = 0;
-                                                                $temp_qk = 9;
-                                                                for ($i=0; $i < 10; $i++) :
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_pretest_intervensi[8+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="integrasi_diri_error1<?= $i+1 ?>" id="integrasi_diri_error1<?= $i+1 ?>" >
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- regulasi diri -->
-                                                          <h6 class="mt-4">Regulasi Diri</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_pretest_intervensi[18+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="regulasi_diri_error1<?= $i+1 ?>" id="regulasi_diri_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Interaksi dengan tenaga kesehatan dan lainnya -->
-                                                          <h6 class="mt-4">Interaksi dengan tenaga kesehatan dan lainnya</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_pretest_intervensi[28+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="idtk_error1<?= $i+1 ?>" id="itdk_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                              $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Pemantauan tekanana darah -->
-                                                          <h6 class="mt-4">Pemantauan Tekanana Darah</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_pretest_intervensi[38+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="ptd_error1<?= $i+1 ?>" id="ptd_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Kepatuhan terhadap aturan yang dianjurkan -->
-                                                          <h6 class="mt-4">Kepatuhan terhadap aturan yang dianjurkan</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_pretest_intervensi[48+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="ktayd_error1<?= $i+1 ?>" id="ktayd_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                            </form>
-                                          </div>
-                                          <div class="modal-footer">
-                                              <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- end of modal read -->
                               <a class="<?php
                                     $pretest_intervensi_exist = false; 
                                     foreach ($applied_kuesioner_responden as $key2 => $value2){
@@ -1662,7 +596,8 @@
                                     data-idresponden="<?= $value['id_responden'] ?>"
                                     data-iduser="<?= $id_user ?>"
                                     data-kuesioner="<?= 'postest_kontrol' ?>"
-                                    data-bs-toggle="modal" data-bs-target="#readModalPostestKontrol<?=$value['id']?>"
+                                    data-responden="<?php echo htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8'); ?>"
+                                    data-bs-toggle="modal" data-bs-target="#readModal"
                                     onclick="edit('<?=$active?>', '<?=$value['id']?>')">
                                     <button class="btn btn-<?php
                                     $postest_kontrol_exist = false; 
@@ -1694,540 +629,6 @@
                                     ?>"><span class="fa fa-eye"></span></button>
                                     
                               </a>
-                              <!-- modal read -->
-                              <div class="modal fade top-2" id="readModalPostestKontrol<?=$value['id']?>" tabindex="-1" role="dialog" aria-labelledby="readModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                      <div class="modal-content">
-                                          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                            <div class="bg-gradient-primary shadow-info border-radius-lg pt-4 pb-3">
-                                              <h6 class="text-white text-capitalize ps-3 text-center">View Data Kuesioner <span class="fa fa-fw fa-eye"></span></h6>
-                                            </div>
-                                          </div>
-                                          <div class="modal-body text-start">
-                                            <form action="#">
-                                            <div class="container border border-1 mb-4 table-responsive">
-                                                    <div class="card-header my-4 p-0">
-                                                        <div class="row justify-content-center">
-                                                            <div class="col-md-8 d-flex align-items-center">
-                                                                <h6 class="mb-0 text-center">Self Management Hipertensi Pada Ibu Hamil Puskesmas Masamba Tahun 2023 (Postest Kontrol)</h6>
-                                                            </div>
-                                                            <!-- <div class="col-md-4 text-end">
-                                                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#about_visimisiModal" onclick="edit('about_visimisi', '1')">
-                                                                <i class="fas fa-edit text-info text-md" data-bs-toggle="tooltip" data-bs-placement="top" title="" aria-hidden="true" data-bs-original-title="Edit" aria-label="Edit"></i><span class="sr-only">Edit</span>
-                                                            </a>
-                                                            </div> -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="container">
-                                                      <?php if($this->session->flashdata('flash')) : ?>
-                                                        <div class="flash-data" data-kuesioner="Postest Kontrol" data-flashdata="<?= $this->session->flashdata('flash') ?>"></div>
-                                                      <?php endif; ?>
-                                                      <div class="row mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
-                                                        <div class="col-md-7">
-                                                          <h6 class="data_demografi1">A. Data Demografi</h6>
-                                                          <ol id="list-kuesioner" class="list-kuesioner">
-                                                            <li>
-                                                              <div class="form-group mb-4">
-                                                                <div class="input-group input-group-static my-3">
-                                                                  <label id="label_nama" for="nama1"><?= $kuesioner_postest_kontrol[0]['pertanyaan'] ?></label>
-                                                                  <input type="text" name="nama1" class="form-control" value="<?= $value['qk1_d'] ?>" id="nama1" required>
-                                                                </div>
-                                                              <div class="help-block form-text mt-n2"></div>
-                                                              </div>
-                                                            </li>
-                                                            <li>
-                                                              <div class="form-group mb-4">
-                                                                <div class="input-group input-group-static my-3">
-                                                                  <label id="usia1" for="usia1"><?= $kuesioner_postest_kontrol[1]['pertanyaan'] ?></label>
-                                                                  <input type="number" name="usia1" class="form-control" value="<?= $value['qk2_d'] ?>" id="usia1" required>
-                                                                </div>
-                                                              <div class="help-block form-text mt-n2"></div>
-                                                              </div>
-                                                            </li>
-                                                            <!-- Pendidikan -->
-                                                            <li><?= $kuesioner_postest_kontrol[2]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_postest_kontrol[2]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="pendidikan1" id="pendidikan_jawaban1<?= $i ?>" value="<?= $kuesioner_postest_kontrol[2]['jawaban'.$i] ?>" <?= ($kuesioner_postest_kontrol[2]['jawaban'.$i] == $value['qk3_d']) ? "checked" : "" ?> required>
-                                                                  <label for="pendidikan_jawaban1<?= $i ?>"><?= $kuesioner_postest_kontrol[2]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- pekerjaan -->
-                                                            <li><?= $kuesioner_postest_kontrol[3]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_postest_kontrol[3]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="pekerjaan1" id="pekerjaan_jawaban1<?= $i ?>" value="<?= $kuesioner_postest_kontrol[3]['jawaban'.$i] ?>" <?= ($kuesioner_postest_kontrol[3]['jawaban'.$i] == $value['qk4_d']) ? "checked" : "" ?> required>
-                                                                  <label for="pekerjaan_jawaban1<?= $i ?>"><?= $kuesioner_postest_kontrol[3]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- riwayat merokok -->
-                                                            <li><?= $kuesioner_postest_kontrol[4]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_postest_kontrol[4]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="riwayat_merokok1" id="riwayat_merokok_jawaban1<?= $i ?>" value="<?= $kuesioner_postest_kontrol[4]['jawaban'.$i] ?>" <?= ($kuesioner_postest_kontrol[4]['jawaban'.$i] == $value['qk5_d']) ? "checked" : "" ?> required>
-                                                                  <label for="riwayat_merokok_jawaban1<?= $i ?>"><?= $kuesioner_postest_kontrol[4]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- konsumsi alkohol -->
-                                                            <li><?= $kuesioner_postest_kontrol[5]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_postest_kontrol[5]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="konsumsi_alkohol1" id="konsumsi_alkohol_jawaban1<?= $i ?>" value="<?= $kuesioner_postest_kontrol[5]['jawaban'.$i] ?>" <?= ($kuesioner_postest_kontrol[5]['jawaban'.$i] == $value['qk6_d']) ? "checked" : "" ?> required>
-                                                                  <label for="konsumsi_alkohol_jawaban1<?= $i ?>"><?= $kuesioner_postest_kontrol[5]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- penyakit -->
-                                                            <li><?= $kuesioner_postest_kontrol[6]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_postest_kontrol[6]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="penyakit1" id="penyakit_jawaban1<?= $i ?>" value="<?= $kuesioner_postest_kontrol[6]['jawaban'.$i] ?>" <?= ($kuesioner_postest_kontrol[6]['jawaban'.$i] == substr($value['qk7_d'],0,2)) ? "checked" : ($kuesioner_postest_kontrol[6]['jawaban'.$i] == $value['qk7_d'] ? "checked" : "") ?> required>
-                                                                  <label for="penyakit_jawaban1<?= $i ?>"><?= $kuesioner_postest_kontrol[6]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    if($kuesioner_postest_kontrol[6]['jawaban'.$i] == "Ya") :
-                                                                  ?>
-                                                                  <div class="div_desc_penyakit1 form-group mb-4" id="div_desc_penyakit1" style="display: <?= (substr($value['qk7_d'],0,2) == "Ya") ? "block" : "none" ?>">
-                                                                    <div class="input-group input-group-static my-3">
-                                                                      <input type="text" name="desc_penyakit1" class="form-control" id="desc_penyakit1" placeholder="Masukkan deskripsi penyakit.." value="<?= (substr($value['qk7_d'],0,2) == "Ya") ? substr($value['qk7_d'],4) : "" ?>" <?= (substr($value['qk7_d'],0,2) == "Ya") ? "required" : "" ?>>
-                                                                    </div>
-                                                                  <div class="help-block form-text"></div>
-                                                                  </div>
-                                                                  <?php
-                                                                    endif;
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- Tekanan Darah -->
-                                                            <li><?= $kuesioner_postest_kontrol[7]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <?php
-                                                                $exist = false;
-                                                                if(isset($value['qk8_d']) && !empty($value['qk8_d'])) :
-                                                                  $exist = true;
-                                                                  $tekanan_darah = explode(',', $value['qk8_d']);
-                                                                endif;
-                                                                ?>
-                                                                <li>
-                                                                  Sistolik <?= ($exist)  ? $tekanan_darah[0] : "?" ?> mmHg (diisi oleh peneliti)
-                                                                </li>
-                                                                <li>
-                                                                  Diastolik <?= ($exist)  ? $tekanan_darah[1] : "?" ?> mmHg (diisi oleh peneliti)
-                                                                </li>
-                                                              </ul>
-                                                            </li>
-                                                          </ol>
-                                                        </div>
-                                                        <div class="col-md-12 mt-5">
-                                                          <h6 class="self_management1">B. Self Management</h6>
-                                                          <p>
-                                                            Kuesioner ini bertujuan untuk menilai seberapa sering anda melakukan aktifitas untuk mengontrol hipertensi dalam beberapa bulan terakhir. Tidak ada jawaban benar atau salah. Karenanya, jawablah secara jujur pada masing-masing pernyataan untuk menggambarkan perilaku anda yang sebenarnya dengan memberikan tanda silang (√) pada kolom yang sesuai. Gunakan 4 pilihan jawaban sebagai berikut :
-                                                            <br> 
-                                                            1 = Tidak pernah
-                                                            <br>
-                                                            2 = Jarang
-                                                            <br>
-                                                            3 = Kadang-kadang
-                                                            <br>
-                                                            4 = Selalu
-                                                          </p>
-                                                          <!-- integrasi diri -->
-                                                          <h6 class="mt-4">Integrasi Diri</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                $temp = 0;
-                                                                $temp_qk = 9;
-                                                                for ($i=0; $i < 10; $i++) :
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_postest_kontrol[8+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="integrasi_diri_error1<?= $i+1 ?>" id="integrasi_diri_error1<?= $i+1 ?>" >
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- regulasi diri -->
-                                                          <h6 class="mt-4">Regulasi Diri</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_postest_kontrol[18+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="regulasi_diri_error1<?= $i+1 ?>" id="regulasi_diri_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Interaksi dengan tenaga kesehatan dan lainnya -->
-                                                          <h6 class="mt-4">Interaksi dengan tenaga kesehatan dan lainnya</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_postest_kontrol[28+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="idtk_error1<?= $i+1 ?>" id="itdk_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                              $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Pemantauan tekanana darah -->
-                                                          <h6 class="mt-4">Pemantauan Tekanana Darah</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_postest_kontrol[38+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="ptd_error1<?= $i+1 ?>" id="ptd_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Kepatuhan terhadap aturan yang dianjurkan -->
-                                                          <h6 class="mt-4">Kepatuhan terhadap aturan yang dianjurkan</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_postest_kontrol[48+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="ktayd_error1<?= $i+1 ?>" id="ktayd_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                            </form>
-                                          </div>
-                                          <div class="modal-footer">
-                                              <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- end of modal read -->
                               <a class="<?php
                                     $postest_kontrol_exist = false; 
                                     foreach ($applied_kuesioner_responden as $key2 => $value2){
@@ -2338,7 +739,8 @@
                                     data-idresponden="<?= $value['id_responden'] ?>"
                                     data-iduser="<?= $id_user ?>"
                                     data-kuesioner="<?= 'postest_intervensi' ?>"
-                                    data-bs-toggle="modal" data-bs-target="#readModalPostestIntervensi<?=$value['id']?>"
+                                    data-responden="<?php echo htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8'); ?>"
+                                    data-bs-toggle="modal" data-bs-target="#readModal"
                                     onclick="edit('<?=$active?>', '<?=$value['id']?>')">
                                     <button class="btn btn-<?php
                                     $postest_intervensi_exist = false; 
@@ -2370,540 +772,6 @@
                                     ?>"><span class="fa fa-eye"></span></button>
                                     
                               </a>
-                              <!-- modal read -->
-                              <div class="modal fade top-2" id="readModalPostestIntervensi<?=$value['id']?>" tabindex="-1" role="dialog" aria-labelledby="readModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                      <div class="modal-content">
-                                          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                            <div class="bg-gradient-primary shadow-info border-radius-lg pt-4 pb-3">
-                                              <h6 class="text-white text-capitalize ps-3 text-center">View Data Kuesioner <span class="fa fa-fw fa-eye"></span></h6>
-                                            </div>
-                                          </div>
-                                          <div class="modal-body text-start">
-                                            <form action="#">
-                                            <div class="container border border-1 mb-4 table-responsive">
-                                                    <div class="card-header my-4 p-0">
-                                                        <div class="row justify-content-center">
-                                                            <div class="col-md-8 d-flex align-items-center">
-                                                                <h6 class="mb-0 text-center">Self Management Hipertensi Pada Ibu Hamil Puskesmas Masamba Tahun 2023 (Postest Intervensi)</h6>
-                                                            </div>
-                                                            <!-- <div class="col-md-4 text-end">
-                                                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#about_visimisiModal" onclick="edit('about_visimisi', '1')">
-                                                                <i class="fas fa-edit text-info text-md" data-bs-toggle="tooltip" data-bs-placement="top" title="" aria-hidden="true" data-bs-original-title="Edit" aria-label="Edit"></i><span class="sr-only">Edit</span>
-                                                            </a>
-                                                            </div> -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="container">
-                                                      <?php if($this->session->flashdata('flash')) : ?>
-                                                        <div class="flash-data" data-kuesioner="Postest Intervensi" data-flashdata="<?= $this->session->flashdata('flash') ?>"></div>
-                                                      <?php endif; ?>
-                                                      <div class="row mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
-                                                        <div class="col-md-7">
-                                                          <h6 class="data_demografi1">A. Data Demografi</h6>
-                                                          <ol id="list-kuesioner" class="list-kuesioner">
-                                                            <li>
-                                                              <div class="form-group mb-4">
-                                                                <div class="input-group input-group-static my-3">
-                                                                  <label id="label_nama" for="nama1"><?= $kuesioner_postest_intervensi[0]['pertanyaan'] ?></label>
-                                                                  <input type="text" name="nama1" class="form-control" value="<?= $value['qk1_d'] ?>" id="nama1" required>
-                                                                </div>
-                                                              <div class="help-block form-text mt-n2"></div>
-                                                              </div>
-                                                            </li>
-                                                            <li>
-                                                              <div class="form-group mb-4">
-                                                                <div class="input-group input-group-static my-3">
-                                                                  <label id="usia1" for="usia1"><?= $kuesioner_postest_intervensi[1]['pertanyaan'] ?></label>
-                                                                  <input type="number" name="usia1" class="form-control" value="<?= $value['qk2_d'] ?>" id="usia1" required>
-                                                                </div>
-                                                              <div class="help-block form-text mt-n2"></div>
-                                                              </div>
-                                                            </li>
-                                                            <!-- Pendidikan -->
-                                                            <li><?= $kuesioner_postest_intervensi[2]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_postest_intervensi[2]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="pendidikan1" id="pendidikan_jawaban1<?= $i ?>" value="<?= $kuesioner_postest_intervensi[2]['jawaban'.$i] ?>" <?= ($kuesioner_postest_intervensi[2]['jawaban'.$i] == $value['qk3_d']) ? "checked" : "" ?> required>
-                                                                  <label for="pendidikan_jawaban1<?= $i ?>"><?= $kuesioner_postest_intervensi[2]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- pekerjaan -->
-                                                            <li><?= $kuesioner_postest_intervensi[3]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_postest_intervensi[3]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="pekerjaan1" id="pekerjaan_jawaban1<?= $i ?>" value="<?= $kuesioner_postest_intervensi[3]['jawaban'.$i] ?>" <?= ($kuesioner_postest_intervensi[3]['jawaban'.$i] == $value['qk4_d']) ? "checked" : "" ?> required>
-                                                                  <label for="pekerjaan_jawaban1<?= $i ?>"><?= $kuesioner_postest_intervensi[3]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- riwayat merokok -->
-                                                            <li><?= $kuesioner_postest_intervensi[4]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_postest_intervensi[4]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="riwayat_merokok1" id="riwayat_merokok_jawaban1<?= $i ?>" value="<?= $kuesioner_postest_intervensi[4]['jawaban'.$i] ?>" <?= ($kuesioner_postest_intervensi[4]['jawaban'.$i] == $value['qk5_d']) ? "checked" : "" ?> required>
-                                                                  <label for="riwayat_merokok_jawaban1<?= $i ?>"><?= $kuesioner_postest_intervensi[4]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- konsumsi alkohol -->
-                                                            <li><?= $kuesioner_postest_intervensi[5]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_postest_intervensi[5]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="konsumsi_alkohol1" id="konsumsi_alkohol_jawaban1<?= $i ?>" value="<?= $kuesioner_postest_intervensi[5]['jawaban'.$i] ?>" <?= ($kuesioner_postest_intervensi[5]['jawaban'.$i] == $value['qk6_d']) ? "checked" : "" ?> required>
-                                                                  <label for="konsumsi_alkohol_jawaban1<?= $i ?>"><?= $kuesioner_postest_intervensi[5]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- penyakit -->
-                                                            <li><?= $kuesioner_postest_intervensi[6]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <li>
-                                                                  <?php 
-                                                                    for ($i=1; $i <= 5; $i++) :
-                                                                      if (empty($kuesioner_postest_intervensi[6]['jawaban'.$i])) {
-                                                                        break;
-                                                                      }
-                                                                  ?>
-                                                                  <input type="radio" name="penyakit1" id="penyakit_jawaban1<?= $i ?>" value="<?= $kuesioner_postest_intervensi[6]['jawaban'.$i] ?>" <?= ($kuesioner_postest_intervensi[6]['jawaban'.$i] == substr($value['qk7_d'],0,2)) ? "checked" : ($kuesioner_postest_intervensi[6]['jawaban'.$i] == $value['qk7_d'] ? "checked" : "") ?> required>
-                                                                  <label for="penyakit_jawaban1<?= $i ?>"><?= $kuesioner_postest_intervensi[6]['jawaban'.$i] ?></label>
-                                                                  <br>
-                                                                  <?php 
-                                                                    if($kuesioner_postest_intervensi[6]['jawaban'.$i] == "Ya") :
-                                                                  ?>
-                                                                  <div class="div_desc_penyakit1 form-group mb-4" id="div_desc_penyakit1" style="display: <?= (substr($value['qk7_d'],0,2) == "Ya") ? "block" : "none" ?>">
-                                                                    <div class="input-group input-group-static my-3">
-                                                                      <input type="text" name="desc_penyakit1" class="form-control" id="desc_penyakit1" placeholder="Masukkan deskripsi penyakit.." value="<?= (substr($value['qk7_d'],0,2) == "Ya") ? substr($value['qk7_d'],4) : "" ?>" <?= (substr($value['qk7_d'],0,2) == "Ya") ? "required" : "" ?>>
-                                                                    </div>
-                                                                  <div class="help-block form-text"></div>
-                                                                  </div>
-                                                                  <?php
-                                                                    endif;
-                                                                    endfor;
-                                                                  ?>
-                                                                </li>
-                                                              </ul>
-                                                              <div class="help-block form-text"></div>
-                                                            </li>
-                                                            <!-- Tekanan Darah -->
-                                                            <li><?= $kuesioner_postest_intervensi[7]['pertanyaan'] ?>
-                                                              <ul class="option-list-kuesioner">
-                                                                <?php
-                                                                $exist = false;
-                                                                if(isset($value['qk8_d']) && !empty($value['qk8_d'])) :
-                                                                  $exist = true;
-                                                                  $tekanan_darah = explode(',', $value['qk8_d']);
-                                                                endif;
-                                                                ?>
-                                                                <li>
-                                                                  Sistolik <?= ($exist)  ? $tekanan_darah[0] : "?" ?> mmHg (diisi oleh peneliti)
-                                                                </li>
-                                                                <li>
-                                                                  Diastolik <?= ($exist)  ? $tekanan_darah[1] : "?" ?> mmHg (diisi oleh peneliti)
-                                                                </li>
-                                                              </ul>
-                                                            </li>
-                                                          </ol>
-                                                        </div>
-                                                        <div class="col-md-12 mt-5">
-                                                          <h6 class="self_management1">B. Self Management</h6>
-                                                          <p>
-                                                            Kuesioner ini bertujuan untuk menilai seberapa sering anda melakukan aktifitas untuk mengontrol hipertensi dalam beberapa bulan terakhir. Tidak ada jawaban benar atau salah. Karenanya, jawablah secara jujur pada masing-masing pernyataan untuk menggambarkan perilaku anda yang sebenarnya dengan memberikan tanda silang (√) pada kolom yang sesuai. Gunakan 4 pilihan jawaban sebagai berikut :
-                                                            <br> 
-                                                            1 = Tidak pernah
-                                                            <br>
-                                                            2 = Jarang
-                                                            <br>
-                                                            3 = Kadang-kadang
-                                                            <br>
-                                                            4 = Selalu
-                                                          </p>
-                                                          <!-- integrasi diri -->
-                                                          <h6 class="mt-4">Integrasi Diri</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                $temp = 0;
-                                                                $temp_qk = 9;
-                                                                for ($i=0; $i < 10; $i++) :
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_postest_intervensi[8+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="integrasi_diri_error1<?= $i+1 ?>" id="integrasi_diri_error1<?= $i+1 ?>" >
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- regulasi diri -->
-                                                          <h6 class="mt-4">Regulasi Diri</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_postest_intervensi[18+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="regulasi_diri_error1<?= $i+1 ?>" id="regulasi_diri_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Interaksi dengan tenaga kesehatan dan lainnya -->
-                                                          <h6 class="mt-4">Interaksi dengan tenaga kesehatan dan lainnya</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_postest_intervensi[28+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="idtk_error1<?= $i+1 ?>" id="itdk_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                              $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Pemantauan tekanana darah -->
-                                                          <h6 class="mt-4">Pemantauan Tekanana Darah</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_postest_intervensi[38+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="ptd_error1<?= $i+1 ?>" id="ptd_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                          <!-- Kepatuhan terhadap aturan yang dianjurkan -->
-                                                          <h6 class="mt-4">Kepatuhan terhadap aturan yang dianjurkan</h6>
-                                                          <table class="table table-striped table-bordered text-center">
-                                                            <thead>
-                                                              <th>No</th>
-                                                              <th>Pernyataan</th>
-                                                              <th>TP</th>
-                                                              <th>JR</th>
-                                                              <th>KK</th>
-                                                              <th>SS</th>
-                                                            </thead>
-                                                            <tbody>
-                                                              <?php
-                                                                for ($i=0; $i < 10; $i++) : 
-                                                              ?>
-                                                              <tr>
-                                                                <td><?= $i+1 ?></td>
-                                                                <td class="text-start">
-                                                                  <?= $kuesioner_postest_intervensi[48+$i]['pertanyaan'] ?>
-                                                                  <div class="form-group" style="display: none">
-                                                                    <div>
-                                                                      <input type="hidden" name="ktayd_error1<?= $i+1 ?>" id="ktayd_error1<?= $i+1 ?>">
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                  </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                                <td class="align-middle">
-                                                                  <div class="form-group">
-                                                                    <div>
-                                                                      <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
-                                                                    </div>
-                                                                    <div class="help-block form-text mt-n2"></div>
-                                                                  </div>
-                                                                </td>
-                                                              </tr>
-                                                              <?php
-                                                                $temp_qk++; 
-                                                                endfor;
-                                                              ?>
-                                                            </tbody>
-                                                          </table>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                            </form>
-                                          </div>
-                                          <div class="modal-footer">
-                                              <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- end of modal read -->
                               <!-- edit -->
                               <a class="<?php
                                     $postest_intervensi_exist = false; 
@@ -3064,6 +932,7 @@
     </div>
   </main>
     <!-- load file js.php -->
+    
     <?php $this->load->view('template/_partials/js.php'); ?>
     <!-- modal add -->
     <div class="modal fade top-2" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -3108,6 +977,530 @@
         </div>
     </div>
     <!-- end modal add -->
+    <!-- modal read -->
+    <div class="modal fade top-2" id="readModal" tabindex="-1" role="dialog" aria-labelledby="readModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-info border-radius-lg pt-4 pb-3">
+                  <h6 class="text-white text-capitalize ps-3 text-center">View Data Kuesioner <span class="fa fa-fw fa-eye"></span></h6>
+                </div>
+              </div>
+              <div class="modal-body text-start">
+                <form action="#">
+                <div class="container border border-1 mb-4 table-responsive">
+                        <div class="card-header my-4 p-0">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8 d-flex align-items-center">
+                                    <h6 class="mb-0 text-center">Self Management Hipertensi Pada Ibu Hamil Puskesmas Masamba Tahun 2023 (<span id="read-judul-kuesioner"></span>)</h6>
+                                </div>
+                                <!-- <div class="col-md-4 text-end">
+                                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#about_visimisiModal" onclick="edit('about_visimisi', '1')">
+                                    <i class="fas fa-edit text-info text-md" data-bs-toggle="tooltip" data-bs-placement="top" title="" aria-hidden="true" data-bs-original-title="Edit" aria-label="Edit"></i><span class="sr-only">Edit</span>
+                                </a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="container">
+                          <div class="row mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
+                            <div class="col-md-7">
+                              <h6 class="data_demografi1">A. Data Demografi</h6>
+                              <ol id="list-kuesioner" class="list-kuesioner">
+                                <li>
+                                  <div class="form-group mb-4">
+                                    <div class="input-group input-group-static my-3">
+                                      <label id="label_nama" for="nama1"><?= $kuesioner_pretest_kontrol[0]['pertanyaan'] ?></label>
+                                      <input type="text" name="nama1" class="form-control" value="" id="nama1" readonly>
+                                    </div>
+                                  <div class="help-block form-text mt-n2"></div>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="form-group mb-4">
+                                    <div class="input-group input-group-static my-3">
+                                      <label id="label_usia1" for="usia1"><?= $kuesioner_pretest_kontrol[1]['pertanyaan'] ?></label>
+                                      <input type="number" name="usia1" class="form-control" value="" id="usia1" readonly>
+                                    </div>
+                                  <div class="help-block form-text mt-n2"></div>
+                                  </div>
+                                </li>
+                                <!-- Pendidikan -->
+                                <li><?= $kuesioner_pretest_kontrol[2]['pertanyaan'] ?>
+                                  <ul class="option-list-kuesioner">
+                                    <li>
+                                      <?php 
+                                        for ($i=1; $i <= 5; $i++) :
+                                          if (empty($kuesioner_pretest_kontrol[2]['jawaban'.$i])) {
+                                            break;
+                                          }
+                                      ?>
+                                      <input type="radio" name="pendidikan1" id="pendidikan_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_kontrol[2]['jawaban'.$i] ?>">
+                                      <label for="pendidikan_jawaban1<?= $i ?>"><?= $kuesioner_pretest_kontrol[2]['jawaban'.$i] ?></label>
+                                      <br>
+                                      <?php 
+                                        endfor;
+                                      ?>
+                                    </li>
+                                  </ul>
+                                  <div class="help-block form-text"></div>
+                                </li>
+                                <!-- pekerjaan -->
+                                <li><?= $kuesioner_pretest_kontrol[3]['pertanyaan'] ?>
+                                  <ul class="option-list-kuesioner">
+                                    <li>
+                                      <?php 
+                                        for ($i=1; $i <= 5; $i++) :
+                                          if (empty($kuesioner_pretest_kontrol[3]['jawaban'.$i])) {
+                                            break;
+                                          }
+                                      ?>
+                                      <input type="radio" name="pekerjaan1" id="pekerjaan_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_kontrol[3]['jawaban'.$i] ?>">
+                                      <label for="pekerjaan_jawaban1<?= $i ?>"><?= $kuesioner_pretest_kontrol[3]['jawaban'.$i] ?></label>
+                                      <br>
+                                      <?php 
+                                        endfor;
+                                      ?>
+                                    </li>
+                                  </ul>
+                                  <div class="help-block form-text"></div>
+                                </li>
+                                <!-- riwayat merokok -->
+                                <li><?= $kuesioner_pretest_kontrol[4]['pertanyaan'] ?>
+                                  <ul class="option-list-kuesioner">
+                                    <li>
+                                      <?php 
+                                        for ($i=1; $i <= 5; $i++) :
+                                          if (empty($kuesioner_pretest_kontrol[4]['jawaban'.$i])) {
+                                            break;
+                                          }
+                                      ?>
+                                      <input type="radio" name="riwayat_merokok1" id="riwayat_merokok_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_kontrol[4]['jawaban'.$i] ?>">
+                                      <label for="riwayat_merokok_jawaban1<?= $i ?>"><?= $kuesioner_pretest_kontrol[4]['jawaban'.$i] ?></label>
+                                      <br>
+                                      <?php 
+                                        endfor;
+                                      ?>
+                                    </li>
+                                  </ul>
+                                  <div class="help-block form-text"></div>
+                                </li>
+                                <!-- konsumsi alkohol -->
+                                <li><?= $kuesioner_pretest_kontrol[5]['pertanyaan'] ?>
+                                  <ul class="option-list-kuesioner">
+                                    <li>
+                                      <?php 
+                                        for ($i=1; $i <= 5; $i++) :
+                                          if (empty($kuesioner_pretest_kontrol[5]['jawaban'.$i])) {
+                                            break;
+                                          }
+                                      ?>
+                                      <input type="radio" name="konsumsi_alkohol1" id="konsumsi_alkohol_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_kontrol[5]['jawaban'.$i] ?>">
+                                      <label for="konsumsi_alkohol_jawaban1<?= $i ?>"><?= $kuesioner_pretest_kontrol[5]['jawaban'.$i] ?></label>
+                                      <br>
+                                      <?php 
+                                        endfor;
+                                      ?>
+                                    </li>
+                                  </ul>
+                                  <div class="help-block form-text"></div>
+                                </li>
+                                <!-- penyakit -->
+                                <li><?= $kuesioner_pretest_kontrol[6]['pertanyaan'] ?>
+                                  <ul class="option-list-kuesioner">
+                                    <li>
+                                      <?php 
+                                        for ($i=1; $i <= 5; $i++) :
+                                          if (empty($kuesioner_pretest_kontrol[6]['jawaban'.$i])) {
+                                            break;
+                                          }
+                                      ?>
+                                      <input type="radio" name="penyakit1" id="penyakit_jawaban1<?= $i ?>" value="<?= $kuesioner_pretest_kontrol[6]['jawaban'.$i] ?>">
+                                      <label for="penyakit_jawaban1<?= $i ?>"><?= $kuesioner_pretest_kontrol[6]['jawaban'.$i] ?></label>
+                                      <br>
+                                      <?php 
+                                        if($kuesioner_pretest_kontrol[6]['jawaban'.$i] == "Ya") :
+                                      ?>
+                                      <div class="div_desc_penyakit1 form-group mb-4" id="div_desc_penyakit1" style="display:none;">
+                                        <div class="input-group input-group-static my-3">
+                                          <input type="text" name="desc_penyakit1" class="form-control" id="desc_penyakit1" placeholder="Masukkan deskripsi penyakit.." value="" readonly>
+                                        </div>
+                                      <div class="help-block form-text"></div>
+                                      </div>
+                                      <?php
+                                        endif;
+                                        endfor;
+                                      ?>
+                                    </li>
+                                  </ul>
+                                  <div class="help-block form-text"></div>
+                                </li>
+                                <!-- Tekanan Darah -->
+                                <li><?= $kuesioner_pretest_kontrol[7]['pertanyaan'] ?>
+                                  <ul class="option-list-kuesioner">
+                                    <li>
+                                      Sistolik <span id="sistolik">?</span> mmHg (diisi oleh peneliti)
+                                    </li>
+                                    <li>
+                                      Diastolik <span id="diastolik">?</span> mmHg (diisi oleh peneliti)
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ol>
+                            </div>
+                            <div class="col-md-12 mt-5">
+                              <h6 class="self_management1">B. Self Management</h6>
+                              <p>
+                                Kuesioner ini bertujuan untuk menilai seberapa sering anda melakukan aktifitas untuk mengontrol hipertensi dalam beberapa bulan terakhir. Tidak ada jawaban benar atau salah. Karenanya, jawablah secara jujur pada masing-masing pernyataan untuk menggambarkan perilaku anda yang sebenarnya dengan memberikan tanda silang (√) pada kolom yang sesuai. Gunakan 4 pilihan jawaban sebagai berikut :
+                                <br> 
+                                1 = Tidak pernah
+                                <br>
+                                2 = Jarang
+                                <br>
+                                3 = Kadang-kadang
+                                <br>
+                                4 = Selalu
+                              </p>
+                              <!-- integrasi diri -->
+                              <h6 class="mt-4">Integrasi Diri</h6>
+                              <table class="table table-striped table-bordered text-center">
+                                <thead>
+                                  <th>No</th>
+                                  <th>Pernyataan</th>
+                                  <th>TP</th>
+                                  <th>JR</th>
+                                  <th>KK</th>
+                                  <th>SS</th>
+                                </thead>
+                                <tbody>
+                                  <?php
+                                    $temp = 0;
+                                    $temp_qk = 9;
+                                    for ($i=0; $i < 10; $i++) :
+                                  ?>
+                                  <tr>
+                                    <td><?= $i+1 ?></td>
+                                    <td class="text-start">
+                                      <?= $kuesioner_pretest_kontrol[8+$i]['pertanyaan'] ?>
+                                      <div class="form-group" style="display: none">
+                                        <div>
+                                          <input type="hidden" name="integrasi_diri_error1<?= $i+1 ?>" id="integrasi_diri_error1<?= $i+1 ?>" >
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah">
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                      </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang">
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang">
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="integrasi_diri1<?= ++$temp ?>" name="integrasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu">
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <?php
+                                    $temp_qk++; 
+                                    endfor;
+                                  ?>
+                                </tbody>
+                              </table>
+                              <!-- regulasi diri -->
+                              <h6 class="mt-4">Regulasi Diri</h6>
+                              <table class="table table-striped table-bordered text-center">
+                                <thead>
+                                  <th>No</th>
+                                  <th>Pernyataan</th>
+                                  <th>TP</th>
+                                  <th>JR</th>
+                                  <th>KK</th>
+                                  <th>SS</th>
+                                </thead>
+                                <tbody>
+                                  <?php
+                                    
+                                    for ($i=0; $i < 10; $i++) : 
+                                  ?>
+                                  <tr>
+                                    <td><?= $i+1 ?></td>
+                                    <td class="text-start">
+                                      <?= $kuesioner_pretest_kontrol[18+$i]['pertanyaan'] ?>
+                                      <div class="form-group" style="display: none">
+                                        <div>
+                                          <input type="hidden" name="regulasi_diri_error1<?= $i+1 ?>" id="regulasi_diri_error1<?= $i+1 ?>">
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                      </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="regulasi_diri1<?= ++$temp ?>" name="regulasi_diri1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <?php
+                                    $temp_qk++; 
+                                    endfor;
+                                  ?>
+                                </tbody>
+                              </table>
+                              <!-- Interaksi dengan tenaga kesehatan dan lainnya -->
+                              <h6 class="mt-4">Interaksi dengan tenaga kesehatan dan lainnya</h6>
+                              <table class="table table-striped table-bordered text-center">
+                                <thead>
+                                  <th>No</th>
+                                  <th>Pernyataan</th>
+                                  <th>TP</th>
+                                  <th>JR</th>
+                                  <th>KK</th>
+                                  <th>SS</th>
+                                </thead>
+                                <tbody>
+                                  <?php
+                                    for ($i=0; $i < 10; $i++) : 
+                                  ?>
+                                  <tr>
+                                    <td><?= $i+1 ?></td>
+                                    <td class="text-start">
+                                      <?= $kuesioner_pretest_kontrol[28+$i]['pertanyaan'] ?>
+                                      <div class="form-group" style="display: none">
+                                        <div>
+                                          <input type="hidden" name="idtk_error1<?= $i+1 ?>" id="itdk_error1<?= $i+1 ?>">
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                      </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="idtk1<?= ++$temp ?>" name="idtk1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <?php
+                                  $temp_qk++; 
+                                    endfor;
+                                  ?>
+                                </tbody>
+                              </table>
+                              <!-- Pemantauan tekanana darah -->
+                              <h6 class="mt-4">Pemantauan Tekanana Darah</h6>
+                              <table class="table table-striped table-bordered text-center">
+                                <thead>
+                                  <th>No</th>
+                                  <th>Pernyataan</th>
+                                  <th>TP</th>
+                                  <th>JR</th>
+                                  <th>KK</th>
+                                  <th>SS</th>
+                                </thead>
+                                <tbody>
+                                  <?php
+                                    for ($i=0; $i < 10; $i++) : 
+                                  ?>
+                                  <tr>
+                                    <td><?= $i+1 ?></td>
+                                    <td class="text-start">
+                                      <?= $kuesioner_pretest_kontrol[38+$i]['pertanyaan'] ?>
+                                      <div class="form-group" style="display: none">
+                                        <div>
+                                          <input type="hidden" name="ptd_error1<?= $i+1 ?>" id="ptd_error1<?= $i+1 ?>">
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                      </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="ptd1<?= ++$temp ?>" name="ptd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <?php
+                                    $temp_qk++; 
+                                    endfor;
+                                  ?>
+                                </tbody>
+                              </table>
+                              <!-- Kepatuhan terhadap aturan yang dianjurkan -->
+                              <h6 class="mt-4">Kepatuhan terhadap aturan yang dianjurkan</h6>
+                              <table class="table table-striped table-bordered text-center">
+                                <thead>
+                                  <th>No</th>
+                                  <th>Pernyataan</th>
+                                  <th>TP</th>
+                                  <th>JR</th>
+                                  <th>KK</th>
+                                  <th>SS</th>
+                                </thead>
+                                <tbody>
+                                  <?php
+                                    for ($i=0; $i < 10; $i++) : 
+                                  ?>
+                                  <tr>
+                                    <td><?= $i+1 ?></td>
+                                    <td class="text-start">
+                                      <?= $kuesioner_pretest_kontrol[48+$i]['pertanyaan'] ?>
+                                      <div class="form-group" style="display: none">
+                                        <div>
+                                          <input type="hidden" name="ktayd_error1<?= $i+1 ?>" id="ktayd_error1<?= $i+1 ?>">
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Tidak Pernah" value="Tidak Pernah" required <?= ($value['qk'.$temp_qk.'_sm'] == "Tidak Pernah") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                      </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Jarang" value="Jarang" <?= ($value['qk'.$temp_qk.'_sm'] == "Jarang") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Kadang-kadang" value="Kadang-kadang" <?= ($value['qk'.$temp_qk.'_sm'] == "Kadang-kadang") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                    <td class="align-middle">
+                                      <div class="form-group">
+                                        <div>
+                                          <input type="radio" id="ktayd1<?= ++$temp ?>" name="ktayd1<?= $i+1 ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Selalu" value="Selalu" <?= ($value['qk'.$temp_qk.'_sm'] == "Selalu") ? "checked" : "" ?>>
+                                        </div>
+                                        <div class="help-block form-text mt-n2"></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <?php
+                                    $temp_qk++; 
+                                    endfor;
+                                  ?>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- end of modal read -->
     <!-- modal edit -->
     <div class="modal fade top-2" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -3171,7 +1564,12 @@
             }
             showLoading();
       }
-    </script>
+
+        $(':radio:not(:checked)').attr('disabled', true);
+
+
+      // $(':radio:(:checked)').attr('disabled', );
+      </script>
 </body>
 
 </html>

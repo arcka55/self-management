@@ -50,9 +50,13 @@
         swal.fire({
           title: 'Kuesioner '+ kuesionerTitle,
           text: 'Berhasil '+ flashData,
-          footer: '<a class="text-footsweet" href="<?= base_url('responden/materi/').$id_user ?>">Klik Disini! Untuk Masuk ke Halaman Download Materi</a>',
+          showConfirmButton:false,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          footer: '<a class="btn btn-info" href="#" onclick="swal.close(); return false;" data-bs-toggle="modal" data-bs-target="#readModal">Lihat Materi</a>',
           icon: 'success'
-        });
+          });
+
       }else if(flashData){
         swal.fire({
           title: 'Kuesioner '+ kuesionerTitle,
@@ -219,7 +223,205 @@
               // modal.find('#category3').html(div.data('category'));
               // modal.find('#ckeditor3').html(div.data('post'));
               // modal.find('#nama3').html(div.data('nama'));
+            }else if(active_method == "data_responden") {
+              // pass array php to array js
+              var arr_responden = div.data('responden');
+              
+              
+              modal.find('#read-judul-kuesioner').html(div.data('kuesioner'));
+              
+              // nama
+              modal.find('#nama1').attr("value", arr_responden['qk1_d']);
+
+              // usia
+              modal.find('#usia1').attr("value", arr_responden['qk2_d']);
+
+              // pendidikan
+              (arr_responden['qk3_d'] == "SD") 
+              ? 
+              $("#pendidikan_jawaban11").prop({"checked": true, "disabled": false}) 
+              : 
+              (arr_responden['qk3_d'] == "SMP") 
+              ? 
+              $("#pendidikan_jawaban12").prop({"checked": true, "disabled": false}) 
+              : 
+              (arr_responden['qk3_d'] == "SMA") 
+              ? 
+              $("#pendidikan_jawaban13").prop({"checked": true, "disabled": false}) 
+              : 
+              (arr_responden['qk3_d'] == "Perguruan Tinggi") 
+              ? 
+              $("#pendidikan_jawaban14").prop({"checked": true, "disabled": false}) 
+              : 
+              $("#pendidikan_jawaban15").prop({"checked": true, "disabled": false});
+
+              // pekerjaan
+              (arr_responden['qk4_d'] == "Bertani") 
+              ? 
+              $("#pekerjaan_jawaban11").prop({"checked": true, "disabled": false}) 
+              : 
+              (arr_responden['qk4_d'] == "Pegawai Swasta") 
+              ? 
+              $("#pekerjaan_jawaban12").prop({"checked": true, "disabled": false}) 
+              : 
+              (arr_responden['qk4_d'] == "PNS") 
+              ? 
+              $("#pekerjaan_jawaban13").prop({"checked": true, "disabled": false}) 
+              : 
+              (arr_responden['qk4_d'] == "IRT") 
+              ? 
+              $("#pekerjaan_jawaban14").prop({"checked": true, "disabled": false}) 
+              : 
+              $("#pekerjaan_jawaban15").prop({"checked": true, "disabled": false});
+              
+              // riwayat merokok
+              (arr_responden['qk5_d'] == "Pernah Merokok") 
+              ? 
+              $("#riwayat_merokok_jawaban11").prop({"checked": true, "disabled": false}) 
+              : 
+              (arr_responden['qk5_d'] == "Masih Merokok") 
+              ? 
+              $("#riwayat_merokok_jawaban12").prop({"checked": true, "disabled": false}) 
+              : 
+              $("#riwayat_merokok_jawaban13").prop({"checked": true, "disabled": false});
+
+              // Konsumsi Alkohol
+              (arr_responden['qk6_d'] == "2-4x/bulan") 
+              ? 
+              $("#konsumsi_alkohol_jawaban11").prop({"checked": true, "disabled": false}) 
+              : 
+              (arr_responden['qk6_d'] == "2-3x/minggu") 
+              ? 
+              $("#konsumsi_alkohol_jawaban12").prop({"checked": true, "disabled": false}) 
+              : 
+              (arr_responden['qk6_d'] == ">4x/minggu") 
+              ? 
+              $("#konsumsi_alkohol_jawaban13").prop({"checked": true, "disabled": false}) 
+              : 
+              (arr_responden['qk6_d'] == "Setiap Hari") 
+              ? 
+              $("#konsumsi_alkohol_jawaban14").prop({"checked": true, "disabled": false}) 
+              : 
+              $("#konsumsi_alkohol_jawaban15").prop({"checked": true, "disabled": false});
+
+              // Penyakit
+              if(arr_responden['qk7_d'].substring(0,2) == "Ya") {
+                $("#penyakit_jawaban11").prop({"checked": true, "disabled": false});
+                $("#div_desc_penyakit1").show();
+                modal.find('#desc_penyakit1').attr("value", arr_responden['qk7_d'].substring(3));
+              }else{
+                $("#penyakit_jawaban12").prop({"checked": true, "disabled": false});
+                $("#div_desc_penyakit1").hide();
+              }
+              
+              // tekanan darah
+              if(arr_responden['qk8_d']) {
+                const tekanan_darah = arr_responden['qk8_d'].split(',');
+                modal.find('#sistolik').html(tekanan_darah[0]);
+                modal.find('#diastolik').html(tekanan_darah[1]);
+              }
+
+              // =========================================================================================
+
+              // B. Self Management
+
+              // B.1 Integrasi Diri
+              var temp = 0;
+              var temp_qk = 9;
+              for (var i = 1; i <=10 ; i++) {
+                 
+              if(arr_responden['qk'+temp_qk+'_sm'] == "Tidak Pernah") {
+                $('input[name="integrasi_diri1'+i+'"]').filter("[value='Tidak Pernah']").prop({"checked": true, "disabled": false});
+              }
+              else if(arr_responden['qk'+temp_qk+'_sm'] == "Jarang"){
+                $('input[name="integrasi_diri1'+i+'"]').filter("[value='Jarang']").prop({"checked": true, "disabled": false});
+              }else if(arr_responden['qk'+temp_qk+'_sm'] == "Kadang-kadang") {
+                $('input[name="integrasi_diri1'+i+'"]').filter("[value='Kadang-kadang']").prop({"checked": true, "disabled": false});
+              } 
+              else if(arr_responden['qk'+temp_qk+'_sm'] == "Selalu"){
+                $('input[name="integrasi_diri1'+i+'"]').filter("[value='Selalu']").prop({"checked": true, "disabled": false});
+              }
+
+              temp_qk++;
+
             }
+
+              // B.2 Regulasi Diri
+              for (var i = 1; i <=10 ; i++) {
+                 
+              if(arr_responden['qk'+temp_qk+'_sm'] == "Tidak Pernah") {
+                $('input[name="regulasi_diri1'+i+'"]').filter("[value='Tidak Pernah']").prop({"checked": true, "disabled": false});
+              }
+              else if(arr_responden['qk'+temp_qk+'_sm'] == "Jarang"){
+                $('input[name="regulasi_diri1'+i+'"]').filter("[value='Jarang']").prop({"checked": true, "disabled": false});
+              }else if(arr_responden['qk'+temp_qk+'_sm'] == "Kadang-kadang") {
+                $('input[name="regulasi_diri1'+i+'"]').filter("[value='Kadang-kadang']").prop({"checked": true, "disabled": false});
+              } 
+              else if(arr_responden['qk'+temp_qk+'_sm'] == "Selalu"){
+                $('input[name="regulasi_diri1'+i+'"]').filter("[value='Selalu']").prop({"checked": true, "disabled": false});
+              }
+
+              temp_qk++;
+
+            }
+
+              // B.3 Interaksi Dengan Tenaga Kesehatan dan Lainnya (itdk)
+              for (var i = 1; i <=10 ; i++) {
+                 
+              if(arr_responden['qk'+temp_qk+'_sm'] == "Tidak Pernah") {
+                $('input[name="idtk1'+i+'"]').filter("[value='Tidak Pernah']").prop({"checked": true, "disabled": false});
+              }
+              else if(arr_responden['qk'+temp_qk+'_sm'] == "Jarang"){
+                $('input[name="idtk1'+i+'"]').filter("[value='Jarang']").prop({"checked": true, "disabled": false});
+              }else if(arr_responden['qk'+temp_qk+'_sm'] == "Kadang-kadang") {
+                $('input[name="idtk1'+i+'"]').filter("[value='Kadang-kadang']").prop({"checked": true, "disabled": false});
+              } 
+              else if(arr_responden['qk'+temp_qk+'_sm'] == "Selalu"){
+                $('input[name="idtk1'+i+'"]').filter("[value='Selalu']").prop({"checked": true, "disabled": false});
+              }
+
+              temp_qk++;
+
+            }
+
+              // B.4 Pemantauan Tekanan Darah (ptd)
+              for (var i = 1; i <=10 ; i++) {
+                 
+              if(arr_responden['qk'+temp_qk+'_sm'] == "Tidak Pernah") {
+                $('input[name="ptd1'+i+'"]').filter("[value='Tidak Pernah']").prop({"checked": true, "disabled": false});
+              }
+              else if(arr_responden['qk'+temp_qk+'_sm'] == "Jarang"){
+                $('input[name="ptd1'+i+'"]').filter("[value='Jarang']").prop({"checked": true, "disabled": false});
+              }else if(arr_responden['qk'+temp_qk+'_sm'] == "Kadang-kadang") {
+                $('input[name="ptd1'+i+'"]').filter("[value='Kadang-kadang']").prop({"checked": true, "disabled": false});
+              } 
+              else if(arr_responden['qk'+temp_qk+'_sm'] == "Selalu"){
+                $('input[name="ptd1'+i+'"]').filter("[value='Selalu']").prop({"checked": true, "disabled": false});
+              }
+
+              temp_qk++;
+
+            }
+
+              // B.5 Kepatuhan Terhadap Aturan yang Dianjurkan (ktayd)
+              for (var i = 1; i <=10 ; i++) {
+                 
+              if(arr_responden['qk'+temp_qk+'_sm'] == "Tidak Pernah") {
+                $('input[name="ktayd1'+i+'"]').filter("[value='Tidak Pernah']").prop({"checked": true, "disabled": false});
+              }
+              else if(arr_responden['qk'+temp_qk+'_sm'] == "Jarang"){
+                $('input[name="ktayd1'+i+'"]').filter("[value='Jarang']").prop({"checked": true, "disabled": false});
+              }else if(arr_responden['qk'+temp_qk+'_sm'] == "Kadang-kadang") {
+                $('input[name="ktayd1'+i+'"]').filter("[value='Kadang-kadang']").prop({"checked": true, "disabled": false});
+              } 
+              else if(arr_responden['qk'+temp_qk+'_sm'] == "Selalu"){
+                $('input[name="ktayd1'+i+'"]').filter("[value='Selalu']").prop({"checked": true, "disabled": false});
+              }
+
+              temp_qk++;
+
+            }
+          }
             
             
       });
