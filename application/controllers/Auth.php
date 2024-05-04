@@ -1,35 +1,37 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Auth extends CI_Controller {
+class Auth extends CI_Controller
+{
 
     // private $data = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
-        $this->load->model('auth_model','auth');
-        $this->load->model('responden_model','responden');
-        $this->load->model('applied_kuesioner_responden_model','applied_kuesioner_responden');
-		$this->load->model('kuesioner_responden_pretest_kontrol_model','kuesioner_responden_pretest_kontrol');
-		$this->load->model('kuesioner_responden_pretest_intervensi_model','kuesioner_responden_pretest_intervensi');
-		$this->load->model('kuesioner_responden_postest_kontrol_model','kuesioner_responden_postest_kontrol');
-		$this->load->model('kuesioner_responden_postest_intervensi_model','kuesioner_responden_postest_intervensi');
+        $this->load->model('auth_model', 'auth');
+        $this->load->model('responden_model', 'responden');
+        $this->load->model('applied_kuesioner_responden_model', 'applied_kuesioner_responden');
+        $this->load->model('kuesioner_responden_pretest_kontrol_model', 'kuesioner_responden_pretest_kontrol');
+        $this->load->model('kuesioner_responden_pretest_intervensi_model', 'kuesioner_responden_pretest_intervensi');
+        $this->load->model('kuesioner_responden_postest_kontrol_model', 'kuesioner_responden_postest_kontrol');
+        $this->load->model('kuesioner_responden_postest_intervensi_model', 'kuesioner_responden_postest_intervensi');
         // $this->load->library('form_validation');
     }
-    
-    public function index() {
+
+    public function index()
+    {
         $username = $this->input->post('username_email');
         $email = $this->input->post('username_email');
         $password = $this->input->post('password');
-    
+
         $user_email = $this->db->get_where('user', ['email' => $email])->row_array();
         $user_username = $this->db->get_where('user', ['username' => $username])->row_array();
 
         $user = ($user_email) ? $user_email : $user_username;
 
         // jika user ada
-        if($user) 
-        {
+        if ($user) {
             var_dump($user['id']);
             // session
             $this->session->set_flashdata('email_username_value', $this->input->post('username_email'));
@@ -43,24 +45,22 @@ class Auth extends CI_Controller {
                 ];
 
                 $this->session->set_userdata($data);
-                
-                if ($user['role_id'] == 1) {
-                    redirect("admin/".$user['id']);
-                } else {
-                    redirect("responden/".$user['id']);
-                }
 
-            }else{
+                if ($user['role_id'] == 1) {
+                    redirect("admin/" . $user['id']);
+                } else {
+                    redirect("responden/" . $user['id']);
+                }
+            } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger d-flex align-items-center text-white" style="font-size:13px" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                 <div>Maaf Password yang anda masukkan salah !</div></div>');
 
                 redirect('home');
             }
-                    
-        }else{
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger d-flex align-items-center text-white" style="font-size:13px" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
             <div>Maaf Email atau Username Anda Belum Terdaftar !</div></div>');
-                
+
             redirect('home');
         }
     }
@@ -82,12 +82,12 @@ class Auth extends CI_Controller {
         $penyakit = $this->input->post('penyakit');
         $desc_penyakit = $this->input->post('desc_penyakit');
 
-        if(!empty($desc_penyakit)) {
-            $penyakit = $penyakit.", ".$desc_penyakit;
+        if (!empty($desc_penyakit)) {
+            $penyakit = $penyakit . ", " . $desc_penyakit;
         }
 
         $data_user = array(
-            'username' => $nama.date("dmyHis"),
+            'username' => $nama . date("dmyHis"),
             'email' => $email,
             'password' => $password2,
             'role_id' => '2',
@@ -106,7 +106,7 @@ class Auth extends CI_Controller {
             'email' => $email,
             'gambar' => 'responden_default.png',
             'id_user' => $insert_user
-        ); 
+        );
 
         $insert_responden = $this->responden->save($data_responden);
 
@@ -114,9 +114,9 @@ class Auth extends CI_Controller {
         $data_applied_kuesioner_responden = array(
             'id_responden' => $insert_responden
         );
-    
+
         $insert_applied_kuesioner_responden = $this->applied_kuesioner_responden->save($data_applied_kuesioner_responden);
-        
+
         // pretest kontrol default
         $data_kuesioner_responden_pretest_kontrol = array(
             'id_responden' => $insert_responden,
@@ -128,9 +128,9 @@ class Auth extends CI_Controller {
             'qk6_d' => $konsumsi_alkohol,
             'qk7_d' => $penyakit
         );
-        
+
         $insert_kuesioner_pretest_kontrol = $this->kuesioner_responden_pretest_kontrol->save($data_kuesioner_responden_pretest_kontrol);
-        
+
         // pretest intervensi default
         $data_kuesioner_responden_pretest_intervensi = array(
             'id_responden' => $insert_responden,
@@ -142,9 +142,9 @@ class Auth extends CI_Controller {
             'qk6_d' => $konsumsi_alkohol,
             'qk7_d' => $penyakit
         );
-        
+
         $insert_kuesioner_pretest_intervensi = $this->kuesioner_responden_pretest_intervensi->save($data_kuesioner_responden_pretest_intervensi);
-        
+
         // postest kontrol default
         $data_kuesioner_responden_postest_kontrol = array(
             'id_responden' => $insert_responden,
@@ -156,9 +156,9 @@ class Auth extends CI_Controller {
             'qk6_d' => $konsumsi_alkohol,
             'qk7_d' => $penyakit
         );
-        
+
         $insert_kuesioner_postest_kontrol = $this->kuesioner_responden_postest_kontrol->save($data_kuesioner_responden_postest_kontrol);
-        
+
         // postest intervensi default
         $data_kuesioner_responden_postest_intervensi = array(
             'id_responden' => $insert_responden,
@@ -170,13 +170,12 @@ class Auth extends CI_Controller {
             'qk6_d' => $konsumsi_alkohol,
             'qk7_d' => $penyakit
         );
-        
+
         $insert_kuesioner_postest_intervensi = $this->kuesioner_responden_postest_intervensi->save($data_kuesioner_responden_postest_intervensi);
 
         $this->session->set_flashdata('message', '<div class="alert alert-success text-white" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>Selamat, Akun anda telah berhasil terdaftar</div>');
 
         echo json_encode(array("status" => TRUE));
-
     }
 
     public function logout()
@@ -186,13 +185,12 @@ class Auth extends CI_Controller {
         $this->session->unset_userdata('role_id');
 
         $this->session->set_flashdata('message', '<div class="alert alert-success text-white" role="alert">You have been logged out!</div>');
-        
-        redirect('home');
+
+        redirect("/");
     }
 
     private function login()
     {
-        
     }
 
 
@@ -200,12 +198,12 @@ class Auth extends CI_Controller {
     {
         $this->_validate();
         $data = array(
-                'email' => $this->input->post('firstName'),
-                'lastName' => $this->input->post('lastName'),
-                'gender' => $this->input->post('gender'),
-                'address' => $this->input->post('address'),
-                'dob' => $this->input->post('dob'),
-            );
+            'email' => $this->input->post('firstName'),
+            'lastName' => $this->input->post('lastName'),
+            'gender' => $this->input->post('gender'),
+            'address' => $this->input->post('address'),
+            'dob' => $this->input->post('dob'),
+        );
         $insert = $this->person->save($data);
         echo json_encode(array("status" => TRUE));
     }
@@ -222,10 +220,9 @@ class Auth extends CI_Controller {
         $email = $this->input->post('username_email');
         $password = $this->input->post('password');
 
-        
- 
-        if($username == '')
-        {
+
+
+        if ($username == '') {
             $data['inputerror'][] = 'username_email';
             $data['error_string'][] = 'Maaf, username atau email Tidak Boleh Kosong';
             $data['status'] = FALSE;
@@ -237,16 +234,14 @@ class Auth extends CI_Controller {
         //     $data['error_string'][] = 'Maaf, Format Email Tidak Sesuai';
         //     $data['status'] = FALSE;
         // }
- 
-        if($password == '')
-        {
+
+        if ($password == '') {
             $data['inputerror'][] = 'password';
             $data['error_string'][] = 'Maaf, Password Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
- 
-        if($data['status'] === FALSE)
-        {
+
+        if ($data['status'] === FALSE) {
             echo json_encode($data);
             exit();
         }
@@ -272,106 +267,95 @@ class Auth extends CI_Controller {
         $penyakit = $this->input->post('penyakit');
         $desc_penyakit = $this->input->post('desc-penyakit');
 
-        
-        $user = $this->db->get_where('user', ['email' => $email])->row_array();
-        
 
-        if($email == '')
-        {
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+
+
+        if ($email == '') {
             $data['inputerror'][] = 'email';
             $data['error_string'][] = 'Maaf, email Tidak Boleh Kosong';
             $data['status'] = FALSE;
-        }
-
-        else if(!preg_match("/.+@.+\..+/",$email))
-        {
+        } else if (!preg_match("/.+@.+\..+/", $email)) {
             $data['inputerror'][] = 'email';
             $data['error_string'][] = 'Maaf, Format Email Tidak Sesuai';
             $data['status'] = FALSE;
         }
- 
-        if($password2 == '')
-        {
+
+        if ($password2 == '') {
             $data['inputerror'][] = 'password2';
             $data['error_string'][] = 'Maaf, Password Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
-        if($confirm_password == '')
-        {
+        if ($confirm_password == '') {
             $data['inputerror'][] = 'confirm_password';
             $data['error_string'][] = 'Maaf, Confirm Password Tidak Boleh Kosong';
             $data['status'] = FALSE;
-        }else if($password2 != $confirm_password)
-        {
+        } else if ($password2 != $confirm_password) {
             $data['inputerror'][] = 'confirm_password';
             $data['error_string'][] = 'Maaf, Confirm Password Tidak Sesuai';
             $data['status'] = FALSE;
         }
 
-        if($nama == '')
-        {
+        if ($nama == '') {
             $data['inputerror'][] = 'nama';
             $data['error_string'][] = 'Maaf, nama Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
-        if($usia == '')
-        {
+        if ($usia == '') {
             $data['inputerror'][] = 'usia';
             $data['error_string'][] = 'Maaf, Usia Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
-        if(!isset($pendidikan)) {
+        if (!isset($pendidikan)) {
             $data['inputerror'][] = 'pendidikan';
             $data['error_string'][] = 'Maaf, Pendidikan Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
-        if(!isset($gender)) {
+        if (!isset($gender)) {
             $data['inputerror'][] = 'gender';
             $data['error_string'][] = 'Maaf, Gender Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
-        if(!isset($riwayat_merokok)) {
+        if (!isset($riwayat_merokok)) {
             $data['inputerror'][] = 'riwayat-merokok';
             $data['error_string'][] = 'Maaf, Riwayat Merokok Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
-        if(!isset($pekerjaan)) {
+        if (!isset($pekerjaan)) {
             $data['inputerror'][] = 'pekerjaan';
             $data['error_string'][] = 'Maaf, Pekerjaan Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
-        if(!isset($konsumsi_alkohol)) {
+        if (!isset($konsumsi_alkohol)) {
             $data['inputerror'][] = 'konsumsi-alkohol';
             $data['error_string'][] = 'Maaf, Konsumsi Alkohol Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
-        if(!isset($penyakit)) {
+        if (!isset($penyakit)) {
             $data['inputerror'][] = 'penyakit';
             $data['error_string'][] = 'Maaf, Penyakit Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 
 
-        if($user){
+        if ($user) {
             $data['inputerror'][] = 'message_daftar';
             $data['error_string'][] = 'Maaf Email yang anda masukkan telah terdaftar !';
             $data['status'] = FALSE;
         }
-        
- 
-        if($data['status'] === FALSE)
-        {
+
+
+        if ($data['status'] === FALSE) {
             echo json_encode($data);
             exit();
         }
     }
-
 }
